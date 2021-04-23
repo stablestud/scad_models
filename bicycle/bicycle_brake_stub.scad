@@ -8,7 +8,7 @@ notch_width = 1;
 
 $fn = $preview ? 15 : 75;
 
-len = anti_warp * length;
+len = length;
 wid = anti_warp * width;
 
 module notch(d, wid = 1, depth = 1, center = false) {
