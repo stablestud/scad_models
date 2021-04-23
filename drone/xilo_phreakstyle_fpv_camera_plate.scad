@@ -14,7 +14,6 @@ translate([0, 0, 0.5]) {
 
 difference() {
 	d1 = d / 4 * 5;
-	echo(d1);
 	mh = h / 2;
 	mw = w / 5 * 4;
 
