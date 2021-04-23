@@ -1,4 +1,4 @@
-anti_warp = 0.8;
+anti_warp = 0.85;
 length = 21;
 width = 7;
 
