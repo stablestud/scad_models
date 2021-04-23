@@ -1,7 +1,7 @@
-height = 2;
+height = 4;
 screw_width = 3; // M3 screws
 
-anti_warp = 1.2;
+anti_warp = 1.35;
 
 sw = anti_warp * screw_width;
 
