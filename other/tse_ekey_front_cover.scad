@@ -1,6 +1,6 @@
-length = 70;
-height = 11;
-width  = 39;
+length = 71;
+height = 10.25;
+width  = 38.25;
 
 keyring_arc_length      = 12;
 keyring_arc_width       = 15;
@@ -28,9 +28,12 @@ rotate([90, 0, 0]) {
 		rotate([0, 90, 0]) backclaw(length + thickness - keyring_arc_length);
 	}
 }
+
 translate([-thickness, width + thickness, 0]) {
 	rotate([90, 0, 270]) backclaw(-(length + thickness));
 }
+
+#translate([length, keyring_arc_width, 0]) cube([thickness / 2, width - keyring_arc_width + thickness, thickness * 3]);
 
 module backclaw(length = 0) {
 	assert(length != 0, "length cannot be 0");
