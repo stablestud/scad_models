@@ -6,7 +6,8 @@ keyring_arc_length      = 7;
 keyring_arc_width       = 10;
 keyring_arc_arch_radius = 5;
 
-thickness = 2;
+thickness = 1;
+claw_length = thickness;
 
 difference() {
 	cube([length, width, thickness]);
@@ -21,14 +22,14 @@ difference() {
 	}
 }
 
-translate([0, 0, thickness]) {
-	rotate([90, 0, 0]) {
-		backclaw(-width);
-		rotate([0, 90, 0]) backclaw(length);
+rotate([90, 0, 0]) {
+	translate([-thickness, 0, thickness]) {
+		backclaw(-(width + thickness));
+		rotate([0, 90, 0]) backclaw(length + thickness);
 	}
-	translate([0, width, 0]) {
-		rotate([90, 0, 270]) backclaw(-(length - keyring_arc_length));
-	}
+}
+translate([-thickness, width + thickness, 0]) {
+	rotate([90, 0, 270]) backclaw(-(length - keyring_arc_length + thickness));
 }
 
 module backclaw(length = 0) {
@@ -36,7 +37,7 @@ module backclaw(length = 0) {
 	translate([0, 0, length < 0 ? length : 0]) {
 		l = length < 0 ? -length : length;
 		linear_extrude(height = l) {
-			polygon([[0,0], [0, height + thickness], [thickness * 1.5, height + thickness * 0.5], [thickness * 1.5, height], [thickness, height], [thickness, 0]]);
+			polygon([[0,0], [0, height + thickness * 2], [thickness + claw_length, height + thickness + thickness * 0.5], [thickness + claw_length, height + thickness], [thickness, height + thickness], [thickness, 0]]);
 		}
 	}
 }
