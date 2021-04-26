@@ -1,12 +1,12 @@
-length = 71;
-height = 10;
-width  = 38;
+length = 70;
+height = 11;
+width  = 40;
 
 keyring_arc_length      = 12;
 keyring_arc_width       = 15;
 keyring_arc_arch_radius = 5;
 
-thickness = 1;
+thickness = 1.5;
 claw_length = thickness;
 
 difference() {
