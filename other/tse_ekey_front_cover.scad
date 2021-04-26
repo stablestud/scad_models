@@ -1,6 +1,6 @@
 length = 70;
 height = 11;
-width  = 40;
+width  = 39;
 
 keyring_arc_length      = 12;
 keyring_arc_width       = 15;
