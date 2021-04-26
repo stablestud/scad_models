@@ -24,7 +24,7 @@ difference() {
 
 rotate([90, 0, 0]) {
 	translate([-thickness, 0, thickness]) {
-		backclaw(-(width + thickness));
+		backclaw(-(width + thickness * 2));
 		rotate([0, 90, 0]) backclaw(length + thickness - keyring_arc_length);
 	}
 }
