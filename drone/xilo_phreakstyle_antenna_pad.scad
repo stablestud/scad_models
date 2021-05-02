@@ -7,6 +7,6 @@ anti_warp = .2;
 $fn = $preview ? 25 : 50;
 
 difference() {
-	cylinder(height, r = outer_cyl_dia * (1 + anti_warp) / 2);
+	cylinder(height, r = outer_cyl_dia);
 	cylinder(height, r = inner_cyl_dia * (1 + anti_warp)/ 2);
 }
