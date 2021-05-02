@@ -13,7 +13,7 @@ pos_righthotendcoverhole  = [32.3, 41.7];
 
 $fn = $preview ? 15 : 50;
 
-function genscrewhole(width) = width / 2 * (1 + anti_warp);
+function genscrewhole(width) = width * (1 + anti_warp);
 
 module cylindercube(length = 0, width = 0, height = 0) {
 	assert(width != 0 && length != 0 && height != 0, "Cannot take 0 value args");
@@ -103,7 +103,7 @@ module wheelscrewspacer() {
 }
 
 module hotendscrewhole() {
-	cylinder(h = 4, r = 3.05);
+	cylinder(h = 4, r = 3.1);
 	translate([0, 0, 4])       cylinder(h = 1.5, d = genscrewhole(3));
 	translate([0, 0, 4 + 1.5]) cylinder(h = base_height, r = 2.5);
 }
@@ -134,7 +134,7 @@ difference() {
 	translate(pos_lefthotendcoverhole) hotendcoverhole();  // add left screw hole for stock hotend cover
 	translate(pos_righthotendcoverhole) hotendcoverhole(); // add right screw hole for stock hotend cover
 	translate([-35, 5, 0]) rotate([0, 0, 90]) cylindercube(30, 3 * 6, 70);
-	translate([-3, -13.6, 0]) bottomwheelscrewspacer();
+	translate([-2.25, -8.75, 0]) bottomwheelscrewspacer();
 }
 translate([-35, -13.6, 0]) cube([90, 100, 1]);
 }
