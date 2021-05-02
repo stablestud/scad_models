@@ -137,5 +137,5 @@ difference() {
 	translate([-35, 5, 0]) rotate([0, 0, 90]) cylindercube(30, 3 * 6, 70);
 	translate([-2.25, -8.75, 0]) bottomwheelscrewspacer();
 }
-translate([-35, -13.6, 0]) cube([90, 100, 15]);
+translate([-35, -13.6, 0]) cube([90, 100, 11]);
 }
