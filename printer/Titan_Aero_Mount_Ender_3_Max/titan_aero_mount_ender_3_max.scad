@@ -100,17 +100,17 @@ module bracket() {
 }
 
 module wheelscrewspacer() {
-	scale([1, 1, 0.6]) sphere(d = 11);
+	scale([1, 1, 0.7]) sphere(d = 11.5);
 }
 
 module hotendscrewhole() {
 	cylinder(h = 4, r = 3.15);
-	translate([0, 0, 4])       cylinder(h = 1.5, d = genscrewhole(3));
-	translate([0, 0, 4 + 1.5]) cylinder(h = base_height, r = 3);
+	translate([0, 0, 3.8])       cylinder(h = 1.5, d = genscrewhole(3));
+	translate([0, 0, 3.8 + 1.5]) cylinder(h = base_height, r = 3);
 }
 
 module hotendcoverhole() {
-	cylinder(h = 2, d = genscrewhole(3));
+	cylinder(h = 2.5, d = genscrewhole(3));
 	translate([0, 0, 2]) cylinder(h = base_height, r = 3.15);
 }
 
@@ -119,7 +119,6 @@ module bottomwheelscrewspacer() {
 	translate([0, 0, 5]) sphere(d = 10.5);
 }
 
-intersection() {
 difference() {
 	union() {
 		translate([0, -10, 0]) hotend();
@@ -136,6 +135,4 @@ difference() {
 	translate(pos_righthotendcoverhole) hotendcoverhole(); // add right screw hole for stock hotend cover
 	translate([-35, 5, 0]) rotate([0, 0, 90]) cylindercube(30, 3 * 6, 70);
 	translate([-2.25, -8.75, 0]) bottomwheelscrewspacer();
-}
-translate([-35, -13.6, 0]) cube([90, 100, 11]);
 }
