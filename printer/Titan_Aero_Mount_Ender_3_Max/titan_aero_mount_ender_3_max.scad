@@ -1,7 +1,9 @@
 anti_warp     = .2;
-base_height   = 7.1451;
+base_height   = 7.14507;
 height_offset = 9.4154;
-extra_height  = 7;
+width_offset  = -34.9542;
+extra_height  = 5;
+extra_offset  = 7;
 
 pos_cover_leftwheelscrew  = [-28, 26];
 pos_cover_rightwheelscrew = [12, 26];
@@ -17,10 +19,12 @@ $fn = $preview ? 15 : 55;
 function genscrewhole(width) = width * (1 + anti_warp);
 
 module cylindercube(length = 0, width = 0, height = 0) {
-	assert(width != 0 && length != 0 && height != 0, "Cannot take 0 value args");
-	hull() {
-		cylinder(d = width, h = height);
-		translate([length - width, 0, 0]) cylinder(d = width, h = height);
+	translate([width / 2, 0, 0]) {
+		assert(width != 0 && length != 0 && height != 0, "Cannot take 0 value args");
+		hull() {
+			cylinder(d = width, h = height);
+			translate([length - width, 0, 0]) cylinder(d = width, h = height);
+		}
 	}
 }
 
@@ -28,7 +32,7 @@ module mountbase2dslice() {
 	projection() {
 		rotate([270, 0, 0]) intersection() {
 			translate([0, 0, height_offset]) import("./Aero_Mount_ABLversion.stl");
-			translate([-34.9542, 0, 0]) cube([64, 1, 14]);
+			translate([width_offset, 0, 0]) cube([64, 1, 14]);
 		}
 	}
 }
@@ -58,7 +62,7 @@ module basehotend() {
 	difference() {
 		intersection() {
 			translate([0, 0, height_offset]) import("./Aero_Mount_ABLversion.stl");
-			translate([-35, -3.6]) cube([64.05, 48.16, 70]);
+			translate([width_offset, -3.6]) cube([64.05, 48.16, 70]);
 		}
 		translate([0, 20, 0]) cube([30, 25, 9]);
 	}
@@ -73,7 +77,7 @@ module hotend() {
 		union() {
 			intersection() {
 				basehotend();
-				translate([-35, -3.6]) cube([64.05, 48.16, 30]);
+				translate([width_offset, -3.6]) cube([64.05, 48.16, 30]);
 			}
 			linear_extrude(50 + extra_height) motorbracketsidebumper();
 		}
@@ -132,10 +136,11 @@ module bracket() {
 		translate([12.4, 0, 0]) mirror([1, 0, 0]) invbracketarc();
 	}
 	difference() {
-		translate([-34.5, 34, 0]) cube([35, 22, base_height]);
+		translate([-34.5, 39, 0]) cube([35, 12, base_height]);
 		translate([12.4, 0, 0]) mirror([1, 0, 0]) invbracketarc();
 	}
-	translate([1.4, 21.5, 0]) cube([10, 29, 7.14507]);
+	translate([1.4, 21.5, 0]) cube([10, 29, base_height]);
+	translate([width_offset + 0.4542, 44.56 - extra_offset, 0]) cube([24.5, extra_offset - 5.55987, base_height]);
 }
 
 module wheelscrewspacer() {
@@ -160,17 +165,17 @@ module bottomwheelscrewspacer() {
 
 difference() {
 	union() {
-		translate([0, -10, 0]) hotend();
+		translate([0, -extra_offset, 0]) hotend();
 		bracket();
 		translate(pos_cover_rightwheelscrew) cube([10.5, 10.5, base_height]); // cover right wheel screw spacing
 	}
-	translate([1.5, 26, 18.55 + extra_height]) rotate([0, 90, 0]) cylinder(h = 10.5, d = 40); // make space for extruder gear
+	translate([2.5, 36 - extra_offset, 18.55 + extra_height]) rotate([0, 90, 0]) cylinder(h = 10.5, d = 40); // make space for extruder gear
 	translate(pos_leftwheelspacing)     wheelscrewspacer(); // increase size of left wheel screw spacing
 	translate(pos_rightwheelspacing)    wheelscrewspacer(); // increase size of right wheel screw spacing
 	translate(pos_lefthotendscrewhole)  hotendscrewhole();  // increase size of left stock hotend screw hole
 	translate(pos_righthotendscrewhole) hotendscrewhole();  // increase size of right stock hotend screw hole
 	translate(pos_lefthotendcoverhole)  hotendcoverhole();  // add left screw hole for stock hotend cover
 	translate(pos_righthotendcoverhole) hotendcoverhole();  // add right screw hole for stock hotend cover
-	translate([-35, 5, 0]) rotate([0, 0, 90]) cylindercube(30, 3 * 6, 70);
+	translate([width_offset, 25, 0]) rotate([0, 0, 270]) cylindercube(30, 3 * 3, 30);
 	translate([-2.25, -8.75, 0]) bottomwheelscrewspacer();
 }
