@@ -1,0 +1,7 @@
+This LICENSE file only applies to Aero_Mount_ABLversion.stl and
+titan_aero_mount_ender_3_max.stl
+All other files are licensed under this repo Top Level LICENSE.
+Aero_Mount_ABLversion.stl has been taken from https://www.thingiverse.com/thing:3078853
+
+Liscened to {James true} {Tongue true} 
+ License: cc-nc-sa
