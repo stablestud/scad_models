@@ -1,6 +1,6 @@
 basename = tse_ekey_front_cover
 
-.PHONY: clean png stl
+.PHONY: all clean stl png
 
 all: clean $(basename).stl $(basename).png
 

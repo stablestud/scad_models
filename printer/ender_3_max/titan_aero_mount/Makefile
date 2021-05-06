@@ -1,6 +1,6 @@
 basename = titan_aero_mount_ender_3_max
 
-.PHONY: clean png stl
+.PHONY: all clean stl png
 
 all: clean $(basename).stl $(basename).png
 

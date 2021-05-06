@@ -1,6 +1,6 @@
 basename = xilo_phreakstyle_slam_fpv_camera_plate
 
-.PHONY: clean png stl
+.PHONY: all clean stl png
 
 all: clean $(basename).stl $(basename).png
 

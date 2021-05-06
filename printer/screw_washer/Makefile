@@ -1,6 +1,6 @@
 basename = screw_washer
 
-.PHONY: clean png stl
+.PHONY: all clean stl png
 
 all: clean $(basename).stl $(basename).png
 

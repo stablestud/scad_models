@@ -1,6 +1,6 @@
 basename = xilo_phreakstyle_antenna_bumper
 
-.PHONY: clean png stl
+.PHONY: all clean stl png
 
 all: clean $(basename).stl $(basename).png
 
