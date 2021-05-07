@@ -15,7 +15,7 @@ wall_thickness = 1;
 clips = true;
 
 // Required height for the wires to go through 
-wire_thickness = 2;
+wire_thickness = 2.5;
 
 $fn = $preview ? 15 : 50;
 
@@ -45,10 +45,8 @@ module wire_shaft() {
 				[wire_thickness + wall_thickness, wall_thickness + inner_width],
 				[wire_thickness, wall_thickness * 2 + inner_width],
 				[0, wall_thickness * 2 + inner_width]]);
-			translate([0, wall_thickness]) square([wire_thickness, inner_width]);
+			#translate([0, wall_thickness * 2]) square([wire_thickness, inner_width - wall_thickness * 2]);
 		}
-		translate([wire_thickness, 0]) rotate([0, 0, 45]) square(wall_thickness);
-		translate([wire_thickness, inner_width + wall_thickness / 2]) rotate([0, 0, 45]) square(wall_thickness);
 	}
 }
 
