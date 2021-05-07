@@ -1,6 +1,6 @@
 // Configure the width of the protector to fit on the arm, not points measured are on both sides of "length"
 // Required as the arm width increases from the motor side to the flight controller side
-inner_width = 13;
+inner_width = 14;
 outer_width = 15;
 
 // Length of the wire guard
