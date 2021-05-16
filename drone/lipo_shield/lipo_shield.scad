@@ -10,6 +10,7 @@ anti_warp = .2;
 lipo_strap_hole_length = 10;
 lipo_strap_hole_height = 2;
 
+// Configure lipo strap hole position
 lipo_strap_border_spacing = 10; // Opposite strength to middle_spacing
 lipo_strap_middle_spacing = 1;
 lipo_strap_vertical_spacing = 30;
