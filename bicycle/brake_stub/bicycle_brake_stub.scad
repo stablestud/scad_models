@@ -1,4 +1,4 @@
-anti_warp = 0.85;
+anti_warp = 0.83;
 length = 21;
 width = 7;
 
@@ -19,13 +19,10 @@ module notch(d, wid = 1, depth = 1, center = false) {
 }
 
 difference() {
-	difference() {
-		intersection() {
-			cylinder(h = len, center = true, d = wid);
-			sphere(d = len);
-		}
-		cylinder(h = len / 2, center = true, d = wid / 2);
+	intersection() {
+		cylinder(h = len, center = true, d = wid);
+		sphere(d = len);
 	}
-	translate([0, 0, notch_offset - notch_width / 2]) notch(wid = notch_width, depth = notch_depth, d = wid, center = true);
-	translate([0, 0, -notch_offset + notch_width / 2]) notch(wid = notch_width, depth = notch_depth, d = wid, center = true);
+	//translate([0, 0, notch_offset - notch_width / 2]) notch(wid = notch_width, depth = notch_depth, d = wid, center = true);
+	//translate([0, 0, -notch_offset + notch_width / 2]) notch(wid = notch_width, depth = notch_depth, d = wid, center = true);
 }
