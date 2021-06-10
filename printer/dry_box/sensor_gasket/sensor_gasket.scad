@@ -1,6 +1,6 @@
-sensor_diameter = 39;
+sensor_diameter = 40;
 sensor_depth = 14;
-gasket_diameter = 41;
+gasket_diameter = 42;
 gasket_width = 1;
 gasket_wing_len = 4;
 gasket_wing_height = 2;
