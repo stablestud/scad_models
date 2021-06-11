@@ -1,5 +1,5 @@
 sensor_diameter = 40;
-sensor_depth = 14;
+sensor_depth = 14.5;
 gasket_diameter = 42;
 gasket_width = 1;
 gasket_wing_len = 4;
