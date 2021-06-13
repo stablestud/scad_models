@@ -1,36 +1,40 @@
 include <bracket.scad>
 
 xt60_angle = 45;
+xt60_offset_x = 2;
+xt60_offset_y = 0;
+xt60_offset_z = arm_height / 4;
+xt60_mirrored = false;
 
 xt60_deg = 90 - xt60_angle;
 
 module main() {
 	difference() {
 		bracket();
-		translate([cos(arm_angle) * arm_length + arm_width,
-			sin(arm_angle) * arm_length * 2,
-			 -arm_height / 2]) {
-			rotate([1, xt60_deg]) hull() {
-				scale([1, 1, 2]) translate([0, 0, arm_width]) hull() xt60_bracket();
-				scale([1, 1, -2]) translate([0, 0, -arm_width * 2]) hull() xt60_bracket();
+		translate([cos(arm_angle) * arm_length + arm_width + xt60_offset_x,
+			sin(arm_angle) * arm_length * 2 + xt60_offset_y,
+			 -arm_height / 2 + xt60_offset_z]) {
+			rotate([0, xt60_deg]) hull() {
+				scale([1, 1, 3]) translate([0, 0, arm_width]) hull() xt60_bracket(false);
+				scale([1, 1, -3]) translate([0, 0, -arm_width * 2]) hull() xt60_bracket(false);
 			}
 		}
 	}
 
-	translate([cos(arm_angle) * arm_length + arm_width,
-		sin(arm_angle) * arm_length * 2,
-		-arm_height / 2]) { 
+	translate([cos(arm_angle) * arm_length + arm_width + xt60_offset_x,
+		sin(arm_angle) * arm_length * 2 + xt60_offset_y,
+		-arm_height / 2 + xt60_offset_z]) { 
 
-		rotate([1, xt60_deg]) {
+		rotate([0, xt60_deg + (xt60_mirrored ? 180 : 0)]) {
 			xt60_bracket();
 			translate([0, 0, -arm_width * 2]) xt60_bracket(false);
 		}
 	}
 
 	difference() {
-		translate([cos(arm_angle) * arm_length + arm_width,
-			sin(arm_angle) * arm_length * 2,
-			-arm_height / 2]) rotate([1, xt60_deg]) scale([1, 1, 2]) translate([0, 0, arm_width]) xt60_bracket(false);
+		translate([cos(arm_angle) * arm_length + arm_width + xt60_offset_x,
+			sin(arm_angle) * arm_length * 2 + xt60_offset_y,
+			-arm_height / 2 + xt60_offset_z]) rotate([0, xt60_deg]) scale([1, 1, 2]) translate([0, 0, arm_width]) xt60_bracket(false);
 		translate([0, 0, arm_height / 2]) cube([100, 100, 100]);
 	}
 		
