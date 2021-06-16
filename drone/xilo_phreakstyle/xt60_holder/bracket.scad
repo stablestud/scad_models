@@ -2,7 +2,7 @@ standoff_spacing = 60;
 standoff_width = 5;
 standoff_height = standoff_width * 1.5;
 
-arm_angle = 35;
+arm_angle = 38;
 arm_length = 15;
 arm_height = standoff_height;
 arm_width = standoff_width / 5 * 4;

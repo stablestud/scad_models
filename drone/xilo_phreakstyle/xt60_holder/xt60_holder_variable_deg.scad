@@ -2,7 +2,7 @@ include <bracket.scad>
 
 xt60_angle = 45;
 xt60_offset_x = 2;
-xt60_offset_y = 0;
+xt60_offset_y = -3;
 xt60_offset_z = arm_height / 4;
 xt60_mirrored = false;
 
