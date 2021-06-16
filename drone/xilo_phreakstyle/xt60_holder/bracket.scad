@@ -48,29 +48,41 @@ module standoff_arm() {
 }
 
 module xt60_bracket(gen_claws = true) {
-	xt60_height = anti_warp_shrink(14);
-	xt60_length = 16;
-	xt60_width = 8;
+	xt60_height = anti_warp_widen(15);
+	xt60_length = anti_warp_shrink(16);
+	xt60_width = anti_warp_shrink(8);
 	xt60_stub_width = 0.5;
 
 	translate([-(xt60_bracket_thickness + xt60_length / 2), 0]) {
 		cube([xt60_length + xt60_bracket_thickness * 2, xt60_bracket_thickness, xt60_height]);
-		if (gen_claws) translate([0, -xt60_stub_width, -xt60_bracket_thickness]) cube([xt60_length + xt60_bracket_thickness * 2, xt60_stub_width + xt60_bracket_thickness, xt60_bracket_thickness]);
+		if (gen_claws) {
+			 translate([0, -xt60_stub_width, -xt60_bracket_thickness]) cube([xt60_length + xt60_bracket_thickness * 2, xt60_stub_width + xt60_bracket_thickness, xt60_bracket_thickness]);
+			 translate([0, -xt60_stub_width, -xt60_bracket_thickness + xt60_height]) cube([xt60_length + xt60_bracket_thickness * 2, xt60_stub_width + xt60_bracket_thickness, xt60_bracket_thickness]);
+		}
 	}
 
 	translate([xt60_length / 2, -(xt60_width + xt60_bracket_thickness)]) {
 		cube([xt60_bracket_thickness, xt60_width + xt60_bracket_thickness * 2, xt60_height]);
-		if (gen_claws) translate([-xt60_stub_width, 0, -xt60_bracket_thickness]) cube([xt60_stub_width + xt60_bracket_thickness, xt60_width + xt60_bracket_thickness * 2, xt60_bracket_thickness]);
+		if (gen_claws) {
+			translate([-xt60_stub_width, 0, -xt60_bracket_thickness]) cube([xt60_stub_width + xt60_bracket_thickness, xt60_width + xt60_bracket_thickness * 2, xt60_bracket_thickness]);
+			translate([-xt60_stub_width, 0, -xt60_bracket_thickness + xt60_height]) cube([xt60_stub_width + xt60_bracket_thickness, xt60_width + xt60_bracket_thickness * 2, xt60_bracket_thickness]);
+		}
 	}
 
 	translate([-(xt60_length / 2 + xt60_bracket_thickness), -(xt60_width + xt60_bracket_thickness)]) {
 		cube([xt60_bracket_thickness, xt60_width + xt60_bracket_thickness * 2, xt60_height]);
-		if (gen_claws) translate([0, 0, -xt60_bracket_thickness]) cube([xt60_stub_width + xt60_bracket_thickness, xt60_width + xt60_bracket_thickness * 2, xt60_bracket_thickness]);
+		if (gen_claws) {
+			translate([0, 0, -xt60_bracket_thickness]) cube([xt60_stub_width + xt60_bracket_thickness, xt60_width + xt60_bracket_thickness * 2, xt60_bracket_thickness]);
+			translate([0, 0, -xt60_bracket_thickness + xt60_height]) cube([xt60_stub_width + xt60_bracket_thickness, xt60_width + xt60_bracket_thickness * 2, xt60_bracket_thickness]);
+		}
 	}
 
 	translate([-(xt60_length / 2 + xt60_bracket_thickness), -(xt60_width + xt60_bracket_thickness)]) {
 		cube([xt60_length + xt60_bracket_thickness * 2, xt60_bracket_thickness, xt60_height]);
-		if (gen_claws) translate([0, 0, -xt60_bracket_thickness]) cube([xt60_length + xt60_bracket_thickness * 2, xt60_stub_width + xt60_bracket_thickness, xt60_bracket_thickness]);
+		if (gen_claws) {
+			translate([0, 0, -xt60_bracket_thickness]) cube([xt60_length + xt60_bracket_thickness * 2, xt60_stub_width + xt60_bracket_thickness, xt60_bracket_thickness]);
+			translate([0, 0, -xt60_bracket_thickness + xt60_height]) cube([xt60_length + xt60_bracket_thickness * 2, xt60_stub_width + xt60_bracket_thickness, xt60_bracket_thickness]);
+		}
 	}
 }
 
