@@ -1,5 +1,5 @@
-gasket_thickness = 1.5;
-gasket_length = 5;
+gasket_thickness = 3;
+gasket_length = 8;
 
 tube_inner_dia = 4;
 tube_outer_dia = 6;
@@ -59,6 +59,7 @@ module main() {
 			gasket_base(gasket_thickness);
 			gasket_iso_base(gasket_length + gasket_thickness);
 		}
+		translate([tube_outer_dia / 2 + filament_thickness, 0]) filament_hole(gasket_thickness + gasket_length);
 		translate([tube_outer_dia / 2, 0]) filament_hole(gasket_thickness + gasket_length);
 		translate([tube_inner_dia / 2 - filament_thickness / 3, 0]) filament_hole(gasket_thickness + gasket_length);
 	}
