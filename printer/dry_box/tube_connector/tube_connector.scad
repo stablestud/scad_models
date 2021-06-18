@@ -15,7 +15,7 @@ function anti_warp_shrink(v) = v - ((filament_thickness * anti_warp) * 2);
 
 module inner_cyl(height) {
 	assert(height > 0);
-	cylinder(h = height, d = anti_warp_widen(tube_inner_dia));
+	cylinder(h = height, d = anti_warp_shrink(tube_inner_dia));
 }
 
 module outer_cyl(height) {
