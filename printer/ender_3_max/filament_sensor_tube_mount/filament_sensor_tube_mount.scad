@@ -5,7 +5,7 @@ hole_offset_x = 15.75;
 hole_offset_y = 7.25;
 hole_offset_z = 14;
 tube_diameter = 6;
-tube_mount_length = 15;
+tube_mount_length = 21;
 screw_width = 3;
 screw_depth = 3;
 
@@ -64,7 +64,7 @@ module top_mount() {
 				cylinder(h = tube_mount_length, d = anti_warp_widen(tube_diameter));
 			}
 		}
-		translate([hole_offset_x, hole_offset_y, hole_offset_z]) rotate([90, 0, 0]) {
+		translate([hole_offset_x, hole_offset_y + 6, hole_offset_z]) rotate([90, 0, 0]) {
 			tube_mount();
 		}
 	}
