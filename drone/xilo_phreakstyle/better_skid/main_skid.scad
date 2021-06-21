@@ -1,7 +1,7 @@
 screw_hole_width = 5;
-motor_mount_min = 6;
-motor_mount_max = 9;
-arm_thickness = 5;
+motor_mount_min = 6.5;
+motor_mount_max = 11;
+arm_thickness = 4;
 
 anti_warp = .15;
 filament_width = 1.75;
@@ -80,7 +80,7 @@ module motor_mounts(height) {
 module walls(height) {
 	assert(height > 0);
 	difference() {
-		linear_extrude(height) scale([1.15, 1.1]) arm_model();
+		linear_extrude(height) scale([1.25, 1.25]) arm_model();
 		linear_extrude(height) scale([1.02, 1.02]) arm_model();
 	}
 }
@@ -88,29 +88,29 @@ module walls(height) {
 module grip(height) {
 	assert(height > 0);
 	difference() {
-		linear_extrude(height) scale([1.15, 1.1]) arm_model();
-		linear_extrude(height) scale([0.8, 0.8]) arm_model();
+		linear_extrude(height) scale([1.25, 1.25]) arm_model();
+		linear_extrude(height) scale([0.6, 0.6]) arm_model();
 	}
 }
 
 module top(height, modeltype) {
 	assert(height > 0);
 
-	linear_extrude(height / 4) scale([1.15, 1.1]) arm_model();
+	linear_extrude(height / 4) scale([1.25, 1.25]) arm_model();
 	translate([0, 0, height / 4]) intersection() {
-		linear_extrude(height * 2) scale([1.15, 1.1]) arm_model();
+		linear_extrude(height * 2) scale([1.25, 1.25]) arm_model();
 		if (modeltype == "flat") {
-			translate([0, -0.85, -height * 2]) scale([2.2, 2.6, 1.4]) sphere(height * 2);
+			translate([0, -0.85, -height * 2]) scale([3.3, 3.4, 1.4]) sphere(height * 2);
 		} else {
-			translate([0, -0.85, -height * 2]) scale([1.90, 2.25, 1.65]) sphere(height * 2);
+			translate([0, -0.85, -height * 2]) scale([2.6, 3.1, 1.75]) sphere(height * 2);
 		}
 	}
 }
 
 module model(modeltype) {
 	grip(0.75);
-	translate([0, 0, 0.75]) walls(arm_thickness);
-	translate([0, 0, arm_thickness + 0.75]) top(arm_thickness * 1.2, modeltype);
+	translate([0, 0, 0.75]) walls(anti_warp_widen(arm_thickness));
+	translate([0, 0, anti_warp_widen(arm_thickness) + 0.75]) top(arm_thickness * 1.2, modeltype);
 }
 
 module main(modeltype) {
@@ -118,10 +118,10 @@ module main(modeltype) {
 		model(modeltype);
 		motor_mounts(30);
 		mirror([1, 0]) {
-			translate([0, 12, 0]) cube([5, 15, 0.75]);
-			translate([0, 12, 0.75]) cube([6, 15, arm_thickness]);
+			translate([0, 0, 0]) cube([4, 25, 0.75]);
+			translate([0, 0, 0.75]) cube([6, 25, arm_thickness]);
 		}
-		translate([0, 12, 0]) cube([5, 15, 0.75]);
-		translate([0, 12, 0.75]) cube([6, 15, arm_thickness]);
+		translate([0, 0, 0]) cube([4, 25, 0.75]);
+		translate([0, 0, 0.75]) cube([6, 25, arm_thickness]);
 	}
 }
