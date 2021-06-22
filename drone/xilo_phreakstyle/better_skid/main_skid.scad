@@ -1,7 +1,7 @@
 screw_hole_width = 5;
-motor_mount_min = 6.5;
+motor_mount_min = 7;
 motor_mount_max = 11;
-arm_thickness = 4;
+arm_thickness = 4 + 1; // + 1 for waste from support
 
 anti_warp = .15;
 filament_width = 1.75;
@@ -100,17 +100,17 @@ module top(height, modeltype) {
 	translate([0, 0, height / 4]) intersection() {
 		linear_extrude(height * 2) scale([1.25, 1.25]) arm_model();
 		if (modeltype == "flat") {
-			translate([0, -0.85, -height * 2]) scale([3.3, 3.4, 1.4]) sphere(height * 2);
+			translate([0, -0.85, -height * 2]) scale([2.3, 3.1, 1.4]) sphere(height * 2);
 		} else {
-			translate([0, -0.85, -height * 2]) scale([2.6, 3.1, 1.75]) sphere(height * 2);
+			translate([0, -0.85, -height * 2]) scale([2, 2.5, 1.75]) sphere(height * 2);
 		}
 	}
 }
 
 module model(modeltype) {
 	grip(0.75);
-	translate([0, 0, 0.75]) walls(anti_warp_widen(arm_thickness));
-	translate([0, 0, anti_warp_widen(arm_thickness) + 0.75]) top(arm_thickness * 1.2, modeltype);
+	translate([0, 0, 0.75]) walls(arm_thickness);
+	translate([0, 0, arm_thickness + 0.75]) top(arm_thickness * 1.2, modeltype);
 }
 
 module main(modeltype) {
