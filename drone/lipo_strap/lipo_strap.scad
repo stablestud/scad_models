@@ -39,7 +39,7 @@ module button_leg() {
 }
 
 module button() {
-	!translate([0, 0, button_leg_height / 2]) {
+	translate([0, 0, button_leg_height / 2]) {
 		button_leg();
 		translate([0, 0, button_head_height / 2]) button_head();
 	}
