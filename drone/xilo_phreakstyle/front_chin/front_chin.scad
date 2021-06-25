@@ -2,7 +2,7 @@ standoff_width = 6;
 plate_thickness = 2.5;
 chin_thickness = 2.5;
 chin_angle = 15;
-camera_bracket_thickness = 4;
+camera_bracket_thickness = 3;
  
 $fs = $preview ? 1 : 0.5;
 $fa = $preview ? 10 : 5;
@@ -79,12 +79,15 @@ module frontbumpers() {
 module camera_bracket_spacer(width) {
 	assert(width > 0);
 	rotate([90, 0]) cylinder(d = width, h = 30, center = true);
+	translate([0, 0, width / 2]) cube([width, 30, width], center = true);
 }
 
 module camera_bracket_spacers(width) {
 	assert(width > 0);
-	screwholepos(false, width / 2 + standoff_width / 2) camera_bracket_spacer(width);
-	screwholepos(true, width / 2 + standoff_width / 2) camera_bracket_spacer(width);
+	translate([0, 0, 1]) {
+		screwholepos(false, width / 2 + standoff_width / 2) camera_bracket_spacer(width);
+		screwholepos(true, width / 2 + standoff_width / 2) camera_bracket_spacer(width);
+	}
 }
 
 module main() {
@@ -95,7 +98,7 @@ module main() {
 		}
 		model(anti_warp_widen(plate_thickness));
 		standoffs(anti_warp_widen(chin_thickness * 2 + plate_thickness) * 2);
-		translate([0, 0, chin_thickness + plate_thickness / 2]) camera_bracket_spacers(camera_bracket_thickness);
+		translate([0, 0, anti_warp_shrink(chin_thickness + plate_thickness / 2)]) camera_bracket_spacers(camera_bracket_thickness);
 	}
 }
 
