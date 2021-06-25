@@ -4,7 +4,7 @@ strap_thickness = 1.5;
 
 button_width = strap_width * 0.6;
 button_thickness = button_width / 5;
-button_leg_height = 2;
+button_leg_height = 2.5;
 button_head_height = 2;
 button_head_offset = 1.5;
 button_space = 10;
@@ -39,9 +39,9 @@ module button_leg() {
 }
 
 module button() {
-	translate([0, 0, button_leg_height / 2]) {
+	!translate([0, 0, button_leg_height / 2]) {
 		button_leg();
-		translate([0, 0, button_leg_height]) button_head();
+		translate([0, 0, button_head_height / 2]) button_head();
 	}
 }
 
