@@ -1,15 +1,15 @@
-strap_length = 200; // 20cm 
+strap_length = 230; // 20cm 
 strap_width = 15; // 1.5cm
 strap_thickness = 1.75;
 
-button_width = strap_width * 0.5;
-button_thickness = button_width / 5;
+button_width = strap_width * 0.6;
+button_thickness = button_width / 3;
 button_leg_height = 2;
 button_head_height = 2;
-button_head_offset = 1.25;
+button_head_offset = 1.5;
 button_space = 10;
 buttons = 3;
-button_holes = 7;
+button_holes = 8;
 
 head_length = strap_width;
 
