@@ -1,18 +1,17 @@
-basename = front_chin
+SCADFILES = $(filter-out base_chin.scad, $(wildcard *.scad))
+PNGFILES = $(SCADFILES:.scad=.png)
+STLFILES = $(SCADFILES:.scad=.stl)
 
-.PHONY: all clean stl png
+.PHONY: all stl png clean
+.SUFFIXES: .scad .stl .png
 
-all: clean $(basename).stl $(basename).png
+.scad.stl:
+	openscad --render -o $@ $<
 
-stl: $(basename).stl
+.scad.png:
+	openscad --render -o $@ $<
 
-png: $(basename).png
+all: $(PNGFILES) $(STLFILES)
 
-clean: 
-	rm --force --verbose $(basename).{png,stl}
-
-$(basename).stl:
-	openscad --render -o $(basename).stl $(basename).scad
-
-$(basename).png:
-	openscad --render -o $(basename).png $(basename).scad
+clean:
+	rm --force --verbose *.png *.stl
