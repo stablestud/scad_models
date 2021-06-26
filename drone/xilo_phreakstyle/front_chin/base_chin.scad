@@ -44,7 +44,7 @@ module base_model() {
 
 module standoff_hole(height) {
 	assert(height > 0);
-	cylinder(h = height, d = anti_warp_widen(standoff_width), center = true);
+	cylinder(h = height, d = anti_warp_shrink(standoff_width), center = true);
 }
 
 module screwholepos(mirror = false, offset = 0) {
