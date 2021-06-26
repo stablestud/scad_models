@@ -1,15 +1,15 @@
 strap_length = 200; // 20cm 
 strap_width = 15; // 1.5cm
-strap_thickness = 1.5;
+strap_thickness = 1.75;
 
-button_width = strap_width * 0.6;
+button_width = strap_width * 0.5;
 button_thickness = button_width / 5;
-button_leg_height = 2.5;
+button_leg_height = 2;
 button_head_height = 2;
-button_head_offset = 1.5;
+button_head_offset = 1.25;
 button_space = 10;
 buttons = 3;
-button_holes = 6;
+button_holes = 7;
 
 head_length = strap_width;
 
@@ -41,7 +41,7 @@ module button_leg() {
 module button() {
 	translate([0, 0, button_leg_height / 2]) {
 		button_leg();
-		translate([0, 0, button_head_height / 2]) button_head();
+		translate([0, 0, button_leg_height / 2 + button_head_height / 2]) button_head();
 	}
 }
 
@@ -78,7 +78,7 @@ module tail() {
 		}
 		translate([0, strap_length * 0.92]) generate_button_holes(button_holes);
 	}
-	translate([0, strap_length * 0.03]) generate_buttons(buttons);
+	translate([0, strap_length * 0.03, strap_thickness / 2]) generate_buttons(buttons);
 }
 
 module strap_hole() {
