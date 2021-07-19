@@ -1,7 +1,7 @@
 screw_hole_width = 5;
 motor_mount_min = 6.5;
 motor_mount_max = 8;
-arm_thickness = 4 + 1; // + 1 for waste from support
+arm_thickness = 4 + 0.5; // + 0.5 for waste from support
 
 anti_warp = .15;
 filament_width = 1.75;
@@ -73,7 +73,7 @@ module grip(height) {
 	assert(height > 0);
 	difference() {
 		linear_extrude(height) scale([1.15, 1.15]) base_model();
-		linear_extrude(height) scale([0.7, 0.7]) base_model();
+		linear_extrude(height) scale([0.6, 0.6]) base_model();
 	}
 }
 
@@ -84,9 +84,9 @@ module top(height, modeltype) {
 	translate([0, 0, height / 4]) intersection() {
 		linear_extrude(height * 2) scale([1.15, 1.15]) base_model();
 		if (modeltype == "flat") {
-			translate([0, -0.85, -height * 2]) scale([2.1, 3.5, 1.4]) sphere(height * 2);
+			translate([0, -0.85, -height * 2]) scale([2.3, 4, 1.4]) sphere(height * 2);
 		} else {
-			translate([0, -0.85, -height * 2]) scale([1.8, 3, 1.75]) sphere(height * 2);
+			translate([0, -0.85, -height * 2]) scale([2, 3.4, 1.75]) sphere(height * 2);
 		}
 	}
 }
@@ -100,12 +100,12 @@ module model(modeltype) {
 module main(modeltype) {
 	difference() {
 		model(modeltype);
-		motor_mounts(40);
+		translate([0, 0.5]) motor_mounts(40);
 		rotate([0, 0, 180]) {
 			mirror([1, 0]) {
-				translate([0, 0, 0]) cube([8, 30, 0.75]);
+				translate([0, 0, 0]) cube([6.4, 30, 0.75]);
 			}
-			translate([0, 0, 0]) cube([7, 30, 0.75]);
+			translate([0, 0, 0]) cube([5.3, 30, 0.75]);
 		}
 	}
 }
