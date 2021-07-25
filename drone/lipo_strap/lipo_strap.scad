@@ -1,17 +1,13 @@
-strap_length = 230; // 20cm 
-strap_width = 15; // 1.5cm
-strap_thickness = 1.75;
-
 button_width = strap_width * 0.6;
 button_thickness = button_width / 3;
-button_leg_height = 2;
-button_head_height = 2;
+button_leg_height = strap_thickness * 2;
+button_head_height = strap_thickness;
+button_head_length = strap_width;
 button_head_offset = 1.2;
 button_space = 10;
 buttons = 3;
 button_holes = 8;
 
-head_length = strap_width;
 
 $fs = $preview ? 1 : 0.5;
 $fa = $preview ? 10 : 5;
@@ -46,27 +42,27 @@ module button() {
 }
 
 module button_hole() {
-	cube([anti_warp_widen(button_width + button_head_offset * 0.25), anti_warp_widen(button_thickness), button_leg_height + button_head_height + strap_thickness], center = true);
+	cube([anti_warp_widen(button_width + button_head_offset * 0.25), anti_warp_widen(button_thickness), strap_thickness], center = true);
 }
 
 module generate_buttons(count) {
 	assert(count != undef);
 	for (i = [0:count-1]) {
-		translate([0, 10 * i, 0]) button();
+		translate([0, anti_warp_widen(button_space * i), 0]) button();
 	}
 }
 
 module generate_button_holes(count) {
 	assert(count != undef);
 	for (i = [0:count-1]) {
-		translate([0, -10 * i, 0]) button_hole();
+		translate([0, -button_space * i]) button_hole();
 	}
 }
 
-module tailtip() {
+module tailtip(length) {
 	hull() {
-		cube([strap_width, 1, strap_thickness], center = true);
-		translate([0, strap_length * 0.05 - strap_width / 5]) cylinder(h = strap_thickness, d = strap_width / 5, center = true);
+		cube([strap_width, length * 0.1, strap_thickness], center = true);
+		translate([0, length - (strap_width / 5)]) cylinder(h = strap_thickness, d = strap_width / 5, center = true);
 	}
 }
 
@@ -74,7 +70,7 @@ module tail() {
 	difference() {
 		union() {
 			translate([0, strap_length * 0.95 / 2]) cube([strap_width, strap_length * 0.95, strap_thickness], center = true);
-			translate([0, strap_length * 0.95]) tailtip();
+			translate([0, strap_length * 0.95]) tailtip(strap_length * 0.05);
 		}
 		translate([0, strap_length * 0.92]) generate_button_holes(button_holes);
 	}
@@ -82,7 +78,7 @@ module tail() {
 }
 
 module strap_hole() {
-	cube([anti_warp_widen(strap_width), strap_thickness * 2, head_length], center = true);
+	cube([anti_warp_widen(strap_width), strap_thickness * 2, button_head_length], center = true);
 }
 
 module head() {
@@ -91,9 +87,9 @@ module head() {
 			cube([strap_width, 1, strap_thickness], center = true);
 			translate([0, strap_width * 1/3]) cube([strap_width * 1.5, 1, strap_thickness], center = true);
 			translate([0, strap_width * 2/3]) cube([strap_width * 1.5, 1, strap_thickness], center = true);
-			translate([0, head_length - 1]) cube([strap_width, 1, strap_thickness], center = true);
+			translate([0, button_head_length - 1]) cube([strap_width, 1, strap_thickness], center = true);
 		}
-		translate([0, head_length / 2 + 0.5]) rotate([45, 0]) strap_hole();
+		translate([0, button_head_length / 2 + 0.5]) rotate([45, 0]) strap_hole();
 	}
 }
 

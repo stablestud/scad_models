@@ -1,4 +1,4 @@
-SCADFILES = $(wildcard *.scad)
+SCADFILES = $(filter-out lipo_strap.scad, $(wildcard *.scad))
 PNGFILES = $(SCADFILES:.scad=.png)
 STLFILES = $(SCADFILES:.scad=.stl)
 
