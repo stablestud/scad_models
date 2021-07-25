@@ -1,7 +1,7 @@
 screw_hole_width = 5;
 motor_mount_min = 6.5;
 motor_mount_max = 8;
-arm_thickness = 4 + 0.5; // + 0.5 for waste from support
+arm_thickness = 4 + 1; // + 1 for waste from support
 
 anti_warp = .15;
 filament_width = 1.75;
