@@ -1,4 +1,4 @@
-SCADFILES = $(filter-out main_skid.scad, $(wildcard *.scad))
+SCADFILES = $(wildcard *.scad)
 PNGFILES = $(SCADFILES:.scad=.png)
 STLFILES = $(SCADFILES:.scad=.stl)
 

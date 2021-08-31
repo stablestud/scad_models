@@ -1,6 +1,6 @@
 arm_thickness = 4;
 
-wall_thickness = 1.3;
+wall_thickness = 1.15;
 plate_thickness = 1;
 
 skid_height = 8;
@@ -25,7 +25,7 @@ module base_model() {
 module model() {
 	intersection() {
 		base_model();
-		translate([-20, -25]) square([40, 40]);
+		translate([-20, -20]) square([40, 35]);
 	}
 }
 
@@ -57,7 +57,7 @@ module top_plate() {
 module skid() {
 	intersection() {
 		linear_extrude(height = skid_height) base_plate();
-		translate([0, -2.8]) scale([3.2, 3.71]) sphere(skid_height);
+		#scale([2.7, 3]) sphere(skid_height);
 	}
 }
 
