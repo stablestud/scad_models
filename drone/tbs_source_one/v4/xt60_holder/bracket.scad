@@ -3,7 +3,7 @@ standoff_width = 5;
 standoff_height = standoff_width * 2;
 
 arm_front_angle = 35;
-arm_rear_angle = 50;
+arm_rear_angle = 55;
 arm_offset = 8.55;
 arm_height = standoff_height;
 arm_width = standoff_width / 5 * 4;
@@ -27,7 +27,7 @@ module joint(height, diameter) {
 }
 
 module standoff_hole(height, diameter) {
-	joint(height, diameter);
+	joint(height, anti_warp_shrink(diameter));
 }
 
 
