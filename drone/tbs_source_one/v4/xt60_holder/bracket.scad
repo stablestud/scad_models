@@ -95,12 +95,3 @@ module bracket() {
 	translate([standoff_spacing, -3]) rotate([0, 0, arm_rear_angle]) standoff_arm(1, (arm_offset + 3) / cos(arm_rear_angle));
 	translate([sin(arm_front_angle) * (arm_offset / cos(arm_front_angle)), arm_offset]) bridge();
 }
-
-module debug() {
-		translate([61.3, -15]) 
-		rotate([0, 0, 90])
-		color("grey", .75) {
-			import("SO_v4_bottom_plate_3mm.svg");
-		}
-}
-%debug();
