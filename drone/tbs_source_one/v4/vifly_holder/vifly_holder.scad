@@ -5,9 +5,9 @@ vifly_length = 20;
 thickness = 1;
 standoff_width = 5;
 
-case_rotation = 66;
-case_offset_y = 6;
-case_offset_x = -2.5;
+case_rotation = 56;
+case_offset_y = 3;
+case_offset_x = -1.5;
 
 anti_warp = .15;
 filament_width = 1.75;
