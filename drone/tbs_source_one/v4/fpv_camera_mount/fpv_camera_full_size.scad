@@ -1,17 +1,18 @@
 use <fpv_camera_mount.scad>
 
-standoff_width = 5;
-
-height = 18;
-offset = 16;
-
 anti_warp = .15;
 filament_width = 1.75;
 
 function anti_warp_widen(v) = v + (filament_width * anti_warp) * 2;
 function anti_warp_shrink(v) = v - (filament_width * anti_warp) * 2;
 
-wall_thickness = anti_warp_widen(1.15);
+height = 18;
+offset = 16;
+
+standoff_width = anti_warp_widen(5);
+standoff_wall_thickness = anti_warp_widen(1);
+
+wall_thickness = standoff_wall_thickness * 1.5;
 
 // END OF CONFIGURATION
 
@@ -21,13 +22,16 @@ $fa = $preview ? 10 : 5;
 
 module standoff() {
 	difference() {
-		cylinder(h = height, d = standoff_width + 2 * wall_thickness);
+		cylinder(h = height, d = standoff_width + 2 * standoff_wall_thickness);
 		cylinder(h = height, d = standoff_width);
 	}
 }
 
 module main() {
-	standoff();
+	hull() {
+		standoff();
+		translate([standoff_width / 2, 0]) cylinder(h = height, d = wall_thickness * 2);
+	}
 	translate([standoff_width / 2, 0]) {
 		difference() {
 			union() {
