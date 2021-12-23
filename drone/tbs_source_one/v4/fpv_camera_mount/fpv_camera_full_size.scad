@@ -6,13 +6,13 @@ filament_width = 1.75;
 function anti_warp_widen(v) = v + (filament_width * anti_warp) * 2;
 function anti_warp_shrink(v) = v - (filament_width * anti_warp) * 2;
 
-height = 18;
+height = 19.5;
 offset = 14;
 
 standoff_width = 5;
 standoff_wall_thickness = 1.05;
 
-wall_thickness = 1.85;
+wall_thickness = 2.2;
 
 // END OF CONFIGURATION
 
