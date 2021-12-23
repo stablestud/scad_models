@@ -2,8 +2,8 @@
 
 mount_height = 2;
 screw_width = 3;
-motor_min_mount = 7;
-motor_max_mount = 9;
+motor_min_mount = 7.5;
+motor_max_mount = 10;
 
 anti_warp = .15;
 filament_width = 1.75;
