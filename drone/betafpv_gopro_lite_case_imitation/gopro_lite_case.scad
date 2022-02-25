@@ -7,8 +7,8 @@ minkowski() {
 	cube([58 - minkowski_factor, 39 - minkowski_factor, depth]);
 }
 hull() {
-	translate([28, 8, depth]) cylinder(d = 5, h = camera_depth);
-	translate([24, 2, depth]) cylinder(d = 5, h = camera_depth);
-	translate([21, 21, depth]) cylinder(d = 5, h = camera_depth);
-	translate([12, 8, depth]) cylinder(d = 5, h = camera_depth);
+	translate([26.5, 8, depth]) cylinder(d = 5, h = camera_depth);
+	translate([22.5, 2, depth]) cylinder(d = 5, h = camera_depth);
+	translate([19.5, 21, depth]) cylinder(d = 5, h = camera_depth);
+	translate([10.5, 8, depth]) cylinder(d = 5, h = camera_depth);
 }
