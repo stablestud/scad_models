@@ -6,8 +6,8 @@ filament_width = 1.75;
 function anti_warp_widen(v) = v + (filament_width * anti_warp) * 2;
 function anti_warp_shrink(v) = v - (filament_width * anti_warp) * 2;
 
-height = 12;
-offset = 8;
+height = 13;
+offset = 11;
 
 standoff_width = 5;
 standoff_wall_thickness = 1.05;
@@ -30,7 +30,7 @@ module main() {
 		cylinder(h = height, d = standoff_width);
 	}
 	difference() {
-		translate([-wall_thickness, 0]) {
+		translate([-wall_thickness / 1.5, 0]) {
 			difference() {
 				union() {
 					translate([0, offset + wall_thickness + standoff_width / 2, height / 2]) rotate([0, 90]) {
