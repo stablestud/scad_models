@@ -26,6 +26,7 @@ module standoff() {
 		cylinder(h = height, d = standoff_width);
 	}
 }
+
 module main() {
 	difference() {
 		hull() {
@@ -45,6 +46,14 @@ module main() {
 			}
 		}
 		cylinder(h = height, d = standoff_width);
+	}
+	difference() {
+		hull() {
+			translate([standoff_width / 2.6, offset + standoff_width / 2 + standoff_wall_thickness, height / 2]) rotate([0, 90]) fpv_camera_mount_hole(wall_thickness);
+			standoff();
+		}
+		cylinder(h = height, d = standoff_width);
+		translate([standoff_width / 2.6 - standoff_width, offset + standoff_width / 2 + standoff_wall_thickness, height / 2]) rotate([0, 90]) fpv_camera_mount_hole(wall_thickness + standoff_width, 6);
 	}
 }
 
