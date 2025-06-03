@@ -99,7 +99,7 @@ module main() {
 		translate([tube_outer_dia / 2, 0]) filament_hole(gasket_thickness + gasket_length);
 		translate([tube_inner_dia / 2 - filament_thickness / 3, 0]) filament_hole(gasket_thickness + gasket_length);
 	}
-	translate([0, tube_outer_dia / 2 + filament_thickness]) lanyard(lanyard_length);
+	//translate([0, tube_outer_dia / 2 + filament_thickness]) lanyard(lanyard_length);
 }
 
 main();
