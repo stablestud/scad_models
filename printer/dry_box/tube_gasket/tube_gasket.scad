@@ -1,9 +1,9 @@
 gasket_thickness = 3;
-gasket_length = 8;
+gasket_length = 6;
 lanyard_length = 45;
 
-tube_inner_dia = 4;
-tube_outer_dia = 6;
+tube_inner_dia = 3.75;
+tube_outer_dia = 6.5;
 
 filament_thickness = 1.75;
 anti_warp = .15;
@@ -92,7 +92,7 @@ module lanyard(length) {
 module main() {
 	rotate([0, 0, -90]) difference() {
 		union() {
-			gasket_base(gasket_thickness);
+			gasket_base(gasket_thickness / 2);
 			gasket_iso_base(gasket_length + gasket_thickness);
 		}
 		translate([tube_outer_dia / 2 + filament_thickness, 0]) filament_hole(gasket_thickness + gasket_length);
