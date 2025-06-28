@@ -9,7 +9,7 @@ stl: $(basename).stl
 png: $(basename).png
 
 clean: 
-	rm --force --verbose $(basename).{png,stl}
+	rm --force --verbose $(basename).png $(basename).stl
 
 $(basename).stl:
 	openscad --render -o $(basename).stl $(basename).scad
