@@ -1,4 +1,12 @@
-plate_thickness = 2.5;
+/* References
+
+   https://github.com/Creality3DPrinting/Ender-3/blob/master/Ender-3%20Mechanical/PDF/E%20motor%20bracket.pdf
+   https://github.com/Creality3DPrinting/Ender-3/blob/master/Ender-3%20Mechanical/PDF/Z%20Stent.pdf
+   https://github.com/Creality3DPrinting/Ender-3/blob/master/Ender-3%20Mechanical/PDF/X%20motor%20bracket.pdf
+
+*/
+
+plate_thickness = 3;
 mount_thickness = plate_thickness * 1.3;
 
 main_wheel_pos      = [ 11.9, 43.53 ];
@@ -8,7 +16,7 @@ counter_wheel_top_pos    = [ 72.1,  8.03 ];
 counter_wheel_bottom_pos = [ 72.1, 79.03 ];
 counter_wheels_diameter  = 5.1;
 
-lead_screw_pos           = [ 50.8 - 9.2, 20, 17.15 - 1.2];
+lead_screw_pos           = [ 50.8 - 9, 20, 17.15 - 2.5 / 2 + plate_thickness / 2];
 lead_screw_hole_diameter = 12;
 lead_screw_mount_holes_distance = 18;
 lead_screw_mount_holes_diameter = 3;
@@ -29,6 +37,8 @@ weight_mount_hole_offset   = 15.5;
 weight_mount_base_pos      = [ counter_wheel_top_pos.x, main_wheel_pos.y + 2 ];
 weight_mount_offsets       = [[ 0, -weight_mount_hole_offset ], [ 0, weight_mount_hole_offset ]];
 weight_mount_hole_diameter = 3;
+weight_mount_clearance_offset = [ weight_mount_hole_offset, 0, plate_thickness ];
+weight_mount_clearance_size   = 43.5;
 weight_mount_cutout          = true;
 weight_mount_cutout_diameter = 24;
 weight_mount_cutout_offset   = [ weight_mount_hole_offset, 0 ];
@@ -60,8 +70,8 @@ generate_filamentsensor_mount = false;
 features = [
 		[ "motorcutout",          generate_motorcutout ],
 		[ "filamentsensor_mount", generate_filamentsensor_mount ],
-		[ "weight_mount",          generate_weight_mount ],
-		[ "backlash_mount",        generate_backlash_mount ]];
+		[ "weight_mount",         generate_weight_mount ],
+		[ "backlash_mount",       generate_backlash_mount ]];
 
 function is_feature(feature) = let(val = features[search([feature], features)[0]][1]) !is_undef(val) && val;
 
@@ -169,6 +179,7 @@ module mount_bracket_outline()
 	hull() {
 		mount_bracket_base_outline();
 		mount_bracket_bridge([90, 0]);
+		translate([lead_screw_pos.x + lead_screw_hole_diameter * 1.2, lead_screw_pos.y, lead_screw_pos.z + lead_screw_hole_diameter / 2]) rotate([90, 0]) stub_cylinder(mount_thickness);
 	}
 }
 
@@ -227,6 +238,16 @@ module mount_support_main_wheel()
 	}
 }
 
+module mount_support_non_wheel()
+{
+	hull() {
+		translate([lead_screw_pos.x + lead_screw_hole_diameter * 1.2, lead_screw_pos.y]) rotate([90, 0]) stub_cylinder(mount_thickness);
+		translate([counter_wheel_top_pos.x, lead_screw_pos.y]) rotate([90, 0]) stub_cylinder(mount_thickness);
+		translate([lead_screw_pos.x + lead_screw_hole_diameter * 1.2, lead_screw_pos.y, lead_screw_pos.z + lead_screw_hole_diameter / 2]) rotate([90, 0]) stub_cylinder(mount_thickness);
+		translate(wobblex_backlash_base_pos + wobblex_backlash_support_offsets[0] + [-0.5, 3]) rotate([90, 0]) stub_cylinder(plate_thickness);
+	}
+}
+
 module mount_support_mount()
 {
 	for(i = [[wheel_plate_support_offset, mount_bracket_support_offset], [-wheel_plate_support_offset, -mount_bracket_support_offset]]) { 
@@ -242,6 +263,7 @@ module mount_support()
 {
 	mount_support_mount();
 	mount_support_main_wheel();
+	mount_support_non_wheel();
 }
 
 module wheel_hole_support_point(pos, diameter, rotation = [0, 0], height = plate_thickness)
@@ -290,6 +312,11 @@ module weight_mount_holes()
 	}
 }
 
+module weight_mount_clearance()
+{
+	translate(weight_mount_base_pos) translate([weight_mount_clearance_offset.x, weight_mount_clearance_offset.y, is_feature("backlash_mount") ? weight_mount_clearance_offset.z * 1.5 : weight_mount_clearance_offset.z]) translate([0, 0, weight_mount_clearance_size / 2]) cube(weight_mount_clearance_size, center = true); 
+}
+
 module motor_cutout()
 {
 	offset = [ 14, 12 ];
@@ -308,6 +335,7 @@ module cutouts()
 {
 	wobblex_clearance();
 	if(is_feature("motorcutout")) motor_cutout();
+	if(is_feature("weight_mount")) weight_mount_clearance();
 }
 
 module wobblex_backlash_spring_insert(height = mount_thickness)
@@ -417,7 +445,10 @@ module support()
 		}
 		translate([0, 0, plate_thickness * 1.75]) scale([1, 1, 4]) wheel_hole_support_point(main_wheel_pos, main_wheel_diameter * 1.25);
 		mount_bracket_holes(mount_thickness * 10);
-		if (is_feature("weight_mount") && weight_mount_cutout) weight_mount_cutout();
+		if (is_feature("weight_mount") && weight_mount_cutout) {
+			weight_mount_clearance();
+			weight_mount_cutout();
+		}
 	}
 }
 
@@ -438,7 +469,10 @@ module wobblex_z_bracket()
 		}
 		cutouts();
 		wheel_plate_holes();
-		if(is_feature("weight_mount")) weight_mount_holes();
+		if(is_feature("weight_mount")) {
+			weight_mount_clearance();
+			weight_mount_holes();
+		}
 	}
 }
 

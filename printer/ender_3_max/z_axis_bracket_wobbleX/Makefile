@@ -1,5 +1,5 @@
 SCADFILES = $(filter-out base.scad, $(wildcard *.scad))
-PNGFILES = $(SCADFILES:.scad=.png)
+#PNGFILES = $(SCADFILES:.scad=.png)
 STLFILES = $(SCADFILES:.scad=.stl)
 
 .PHONY: all clean stl png
