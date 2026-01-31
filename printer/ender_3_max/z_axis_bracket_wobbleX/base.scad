@@ -179,7 +179,7 @@ module mount_bracket_outline()
 	hull() {
 		mount_bracket_base_outline();
 		mount_bracket_bridge([90, 0]);
-		translate([lead_screw_pos.x + lead_screw_hole_diameter * 1.2, lead_screw_pos.y, lead_screw_pos.z + lead_screw_hole_diameter / 2]) rotate([90, 0]) stub_cylinder(mount_thickness);
+		translate([lead_screw_pos.x + lead_screw_hole_diameter * 1.5, lead_screw_pos.y, lead_screw_pos.z + lead_screw_hole_diameter / 2]) rotate([90, 0]) stub_cylinder(mount_thickness);
 	}
 }
 
@@ -241,9 +241,9 @@ module mount_support_main_wheel()
 module mount_support_non_wheel()
 {
 	hull() {
-		translate([lead_screw_pos.x + lead_screw_hole_diameter * 1.2, lead_screw_pos.y]) rotate([90, 0]) stub_cylinder(mount_thickness);
+		translate([lead_screw_pos.x + lead_screw_hole_diameter * 1.4, lead_screw_pos.y]) rotate([90, 0]) stub_cylinder(mount_thickness);
 		translate([counter_wheel_top_pos.x, lead_screw_pos.y]) rotate([90, 0]) stub_cylinder(mount_thickness);
-		translate([lead_screw_pos.x + lead_screw_hole_diameter * 1.2, lead_screw_pos.y, lead_screw_pos.z + lead_screw_hole_diameter / 2]) rotate([90, 0]) stub_cylinder(mount_thickness);
+		translate([lead_screw_pos.x + lead_screw_hole_diameter * 1.5, lead_screw_pos.y, lead_screw_pos.z + lead_screw_hole_diameter / 2]) rotate([90, 0]) stub_cylinder(mount_thickness);
 		translate(wobblex_backlash_base_pos + wobblex_backlash_support_offsets[0] + [-0.5, 3]) rotate([90, 0]) stub_cylinder(plate_thickness);
 	}
 }
