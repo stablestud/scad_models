@@ -1,14 +1,16 @@
-wall_thickness = 1.5;
-screw_diameter = 3; // Specify what countersunk screw you are using, e.g for M4 use 4
-screw_pos_offset = [ -11, -11 ]; // Countersunk screw position offset from the edges
+wall_thickness = 2.5;
+screw_diameter = 4; // Specify what countersunk screw you are using, e.g for M4 use 4
+screw_pos_offset = [ -12, -12 ]; // Countersunk screw position offset from the edges
 
 // Here you can specify to what percentage (0.0-1.0) the mount should cover the iHeater
 half_length_percentage = 0.6; // for the length mount
 half_width_percentage = 0.6;  // for the width mount
 
-iheater_length = 140;
-iheater_width  = 115.5;
-iheater_height = 33.2;
+extra_gap = 1; // Add this amount of gap between the iHeater and the mount, this is to ensure good fit
+
+iheater_length = 140 + extra_gap;
+iheater_width  = 115.5 + extra_gap;
+iheater_height = 33.2 + extra_gap;
 iheater_edge_roundness = 8;
 
 screw_shaft_dia = screw_diameter * 1.05;
@@ -51,7 +53,10 @@ module countersunk()
 
 module power_plug()
 {
-	translate([-37, -70, -7.7]) rotate([90, 0]) cyl_cube(23, 14, 20, 12);
+	translate([-37, -70, -7.7]) rotate([90, 0]) {
+		cyl_cube(23, 14, 20, 12);
+		cyl_cube(32, 6, 20, 6);
+	}
 }
 
 module pcb_vent()
@@ -66,9 +71,9 @@ module electronics_vent()
 
 module pins()
 {
-	translate([-53, -3.25, 7.5]) rotate([0, 90]) {
-		cyl_cube(7, 41, 20, 2);
-		translate([1.25, 4.2, 0]) cyl_cube(6, 12, 20, 2);
+	translate([-53, -4.5, 7.5]) rotate([0, 90]) {
+		cyl_cube(7, 45, 20, 2);
+		translate([1.25, 4.2, 0]) cyl_cube(6, 16, 20, 2); // USB-C
 	}
 }
 
