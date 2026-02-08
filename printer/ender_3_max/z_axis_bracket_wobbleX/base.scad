@@ -9,12 +9,12 @@
 plate_thickness = 3;
 mount_thickness = plate_thickness * 1.3;
 
-main_wheel_pos      = [ 11.9, 43.53 ];
+main_wheel_pos      = [ 11.9 - 0.3 /* eccentric nut adjustment */, 43.53 ];
 main_wheel_diameter = 7.2;
 
 counter_wheel_top_pos    = [ 72.1,  8.03 ];
 counter_wheel_bottom_pos = [ 72.1, 79.03 ];
-counter_wheels_diameter  = 5.1;
+counter_wheels_diameter  = 5.1 + 1; // +1 to allow further play to prevent Z banding on Z_TILT
 
 lead_screw_pos           = [ 50.8 - 9, 20, 17.15 - 2.5 / 2 + plate_thickness / 2];
 lead_screw_hole_diameter = 12;
@@ -40,7 +40,7 @@ weight_mount_hole_diameter = 3;
 weight_mount_clearance_offset = [ weight_mount_hole_offset, 0, plate_thickness ];
 weight_mount_clearance_size   = 43.5;
 weight_mount_cutout          = true;
-weight_mount_cutout_diameter = 24;
+weight_mount_cutout_diameter = 25;
 weight_mount_cutout_offset   = [ weight_mount_hole_offset, 0 ];
 
 filament_sensor_hole_diameter = 3;
