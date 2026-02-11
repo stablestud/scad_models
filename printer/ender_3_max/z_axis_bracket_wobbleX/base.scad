@@ -9,7 +9,7 @@
 plate_thickness = 3;
 mount_thickness = plate_thickness * 1.3;
 
-main_wheel_pos      = [ 11.9 - 0.3 /* eccentric nut adjustment */, 43.53 ];
+main_wheel_pos      = [ 11.9, 43.53 ];
 main_wheel_diameter = 7.2;
 
 counter_wheel_top_pos    = [ 72.1,  8.03 ];
@@ -74,10 +74,9 @@ features = [
 		[ "backlash_mount",       generate_backlash_mount ]];
 
 function is_feature(feature) = let(val = features[search([feature], features)[0]][1]) !is_undef(val) && val;
-
 function get_wobblex_backlash_base_pos(offset) = [ lead_screw_pos.x, lead_screw_pos.y + mount_thickness + wobblex_stack_height + offset, lead_screw_pos.z ];
-
 function get_main_wheel_diameter() = (is_feature("filamentsensor_mount") || is_feature("motorcutout")) ? main_wheel_diameter : counter_wheels_diameter;
+function get_main_wheel_pos() = main_wheel_pos + (is_feature("weight_mount") ? [0, 0] : [0.6 /* side without direct eccentric nut has an offset of 0.6mm */, 0]);
 
 $fn = 32;
 
@@ -91,7 +90,7 @@ module wheel_plate_factory(cwd, mwd)
 	assert(cwd)
 	assert(mwd)
 	for(i = [counter_wheel_top_pos, counter_wheel_bottom_pos]) translate(i) cylinder(center = true, d = cwd, h = plate_thickness);
-	translate(main_wheel_pos) cylinder(center = true, d = mwd, h = plate_thickness);
+	translate(get_main_wheel_pos()) cylinder(center = true, d = mwd, h = plate_thickness);
 }
 
 module wheel_plate_holes()
@@ -151,7 +150,7 @@ module mount_bracket_holes(height = mount_thickness)
 
 module mount_bracket_bridge(rotation = [90, 0], offset = 0, diameter = plate_thickness, height = mount_thickness)
 {
-	for(i = [counter_wheel_top_pos.x + counter_wheels_diameter * 2 + offset, is_feature("filamentsensor_mount") ? min(main_wheel_pos.x - offset, filament_sensor_base_pos.x + filament_sensor_hole_offsets[1].x - filament_sensor_hole_diameter * 2 - offset / 2) : main_wheel_pos.x - offset]) {
+	for(i = [counter_wheel_top_pos.x + counter_wheels_diameter * 2 + offset, is_feature("filamentsensor_mount") ? min(get_main_wheel_pos().x - offset, filament_sensor_base_pos.x + filament_sensor_hole_offsets[1].x - filament_sensor_hole_diameter * 2 - offset / 2) : get_main_wheel_pos().x - offset]) {
 		translate([i, lead_screw_pos.y]) rotate(rotation) cylinder(center = true, d = diameter, h = height);
 	}
 }
@@ -229,12 +228,12 @@ module mount_support_main_wheel()
 {
 	difference() {
 		hull() {
-			translate([wobblex_motor_hole_pos.x - wobblex_motor_hole_pos.x / main_wheel_pos.x + mount_thickness, lead_screw_pos.y]) rotate([90, 0]) stub_cylinder(mount_thickness);
-			translate([main_wheel_pos.x + mount_thickness / 2, lead_screw_pos.y]) rotate([90, 0]) stub_cylinder(mount_thickness);
-			translate([wobblex_motor_hole_pos.x - wobblex_motor_hole_pos.x / main_wheel_pos.x - plate_thickness, lead_screw_pos.y, wobblex_motor_hole_pos.z / 4 * 3]) rotate([90, 0]) stub_cylinder(mount_thickness);
-			wheel_hole_support_point(main_wheel_pos, main_wheel_diameter / 4, [180, 0]);
+			translate([wobblex_motor_hole_pos.x - wobblex_motor_hole_pos.x / get_main_wheel_pos().x + mount_thickness, lead_screw_pos.y]) rotate([90, 0]) stub_cylinder(mount_thickness);
+			translate([get_main_wheel_pos().x + mount_thickness / 2, lead_screw_pos.y]) rotate([90, 0]) stub_cylinder(mount_thickness);
+			translate([wobblex_motor_hole_pos.x - wobblex_motor_hole_pos.x / get_main_wheel_pos().x - plate_thickness, lead_screw_pos.y, wobblex_motor_hole_pos.z / 4 * 3]) rotate([90, 0]) stub_cylinder(mount_thickness);
+			wheel_hole_support_point(get_main_wheel_pos(), main_wheel_diameter / 4, [180, 0]);
 		}
-		translate([0, 0, plate_thickness / 2]) wheel_hole_support_point(main_wheel_pos, main_wheel_diameter * 1.5, height = is_feature("backlash_mount") ? plate_thickness * 1.5 * 5 : plate_thickness * 5);
+		translate([0, 0, plate_thickness / 2]) wheel_hole_support_point(get_main_wheel_pos(), main_wheel_diameter * 1.5, height = is_feature("backlash_mount") ? plate_thickness * 1.5 * 5 : plate_thickness * 5);
 	}
 }
 
@@ -288,13 +287,13 @@ module plate_support()
 				}
 				hull() {
 					wheel_hole_support_point(counter_wheel_bottom_pos, diameter = cwdiameter, rotation = [180, 0], height = thickness);
-					wheel_hole_support_point(main_wheel_pos, diameter = mwdiameter, rotation = [180, 0], height = thickness);
+					wheel_hole_support_point(get_main_wheel_pos(), diameter = mwdiameter, rotation = [180, 0], height = thickness);
 				}
 			}
 		}
 		wheel_hole_support_point(counter_wheel_top_pos, diameter = cwdiameter, height = thickness);
 		wheel_hole_support_point(counter_wheel_bottom_pos, diameter = cwdiameter, height = thickness);
-		wheel_hole_support_point(main_wheel_pos, diameter = mwdiameter, height = thickness * 5);
+		wheel_hole_support_point(get_main_wheel_pos(), diameter = mwdiameter, height = thickness * 5);
 	}
 }
 
@@ -434,8 +433,8 @@ module support()
 			plate_support();
 			mount_support();
 			hull() intersection() {
-				translate([main_wheel_diameter / 2, -main_wheel_diameter * 0]) translate(main_wheel_pos) {
-					cylinder(center = true, d1 = (wobblex_motor_hole_pos.x - main_wheel_pos.x) * 3, d2 = main_wheel_diameter * 2, h = plate_thickness * 10);
+				translate([main_wheel_diameter / 2, -main_wheel_diameter * 0]) translate(get_main_wheel_pos()) {
+					cylinder(center = true, d1 = (wobblex_motor_hole_pos.x - get_main_wheel_pos().x) * 3, d2 = main_wheel_diameter * 2, h = plate_thickness * 10);
 				}
 				union() {
 					plate_support();
@@ -443,7 +442,7 @@ module support()
 				}
 			}
 		}
-		translate([0, 0, plate_thickness * 1.75]) scale([1, 1, 4]) wheel_hole_support_point(main_wheel_pos, main_wheel_diameter * 1.25);
+		translate([0, 0, plate_thickness * 1.75]) scale([1, 1, 4]) wheel_hole_support_point(get_main_wheel_pos(), main_wheel_diameter * 1.25);
 		mount_bracket_holes(mount_thickness * 10);
 		if (is_feature("weight_mount") && weight_mount_cutout) {
 			weight_mount_clearance();
