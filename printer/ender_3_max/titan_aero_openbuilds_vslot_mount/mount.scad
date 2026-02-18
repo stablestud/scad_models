@@ -18,8 +18,8 @@ vslot_mount_wall_thickness = 3;
 belt_thickness = 1.2;
 belt_width = 7;
 
-titan_to_20mm_plate_offset = [ 3, 0, 33 ]; // define the offset of titan from the plate, with that the titan mount can be moved
-titan_to_mini_plate_offset = [ -1, 0, 33 ];
+titan_to_20mm_plate_offset = [ 3, 0, 32.5 ]; // define the offset of titan from the plate, with that the titan mount can be moved
+titan_to_mini_plate_offset = [ -1, 0, 32.5 ];
 
 vslot_20mm_holes_dia = 5.1;
 vslot_20mm_holes_nut_dia = vslot_20mm_holes_dia; // actually 7.2 but we use normal M5 screws instead
@@ -130,9 +130,9 @@ vslot_mini_wheel_screw_height = 3.5;
 vslot_mini_wheel_screw_dia = 9; // cutout for screw to wheel spacing which are preinstalled
 vslot_mini_wheel_to_edge_offset = 4.5; // extend plate this amount of mm beyond screw limits
 
-titan_motor_dia = 42.5;
+titan_motor_dia = 43;
 titan_motor_holes_offset = [ 31 / 2, 31 / 2 ];
-titan_motor_holes_dia    = 3.7;
+titan_motor_holes_dia    = 3.2;
 titan_motor_shaft_hole_dia = 27;
 titan_motor_size = [ titan_motor_dia, titan_motor_dia, 55 ];
 titan_extruder1_size = [ 47, 45, 57 ];
@@ -148,7 +148,7 @@ titan_motor_plug_size = [ 40, 12, 6 ];
 titan_motor_plug_offset = [ -13 - titan_motor_plug_size.x / 2, 0, titan_motor_dia / 2 + titan_motor_plug_size.z / 2 ];
 
 creality_fan_mount_thickness = 7.6; 
-creality_fan_mount_offset = [ 29, -creality_fan_mount_thickness / 2 + 1.3, 1.2 ];
+creality_fan_mount_offset = [ 28.5, -creality_fan_mount_thickness / 2 + 1.3, 0.1 ];
 creality_fan_mount_hole_length = 7;
 creality_fan_mount_hole_width = 3.1;
 creality_fan_mount_hole_wall_thickness = 2.8;
