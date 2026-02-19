@@ -18,8 +18,8 @@ vslot_mount_wall_thickness = 3;
 belt_thickness = 1.2;
 belt_width = 7;
 
-titan_to_20mm_plate_offset = [ 3, 0, 32.5 ]; // define the offset of titan from the plate, with that the titan mount can be moved
-titan_to_mini_plate_offset = [ -1, 0, 32.5 ];
+titan_to_20mm_plate_offset = [ -7, 0, 32.5 ]; // define the offset of titan from the plate, with that the titan mount can be moved
+titan_to_mini_plate_offset = [ -9.25, 0, 32.5 ];
 
 titan_motor_dia = 43;
 titan_motor_holes_offset = [ 31 / 2, 31 / 2 ];
@@ -44,12 +44,19 @@ creality_fan_mount_hole_length = 7;
 creality_fan_mount_hole_width = 3.1;
 creality_fan_mount_hole_wall_thickness = 2.8;
 
+abl_mount_size = [ 3, 15, 7.15 ];
+abl_mount_screw_dia = 2.8;
+abl_mount_screw_length = 10;
+abl_mount_offset = [ titan_mount_wall_thickness / 2 - abl_mount_size.x / 2 + 48, titan_motor_holes_offset.y - 1, abl_mount_size.z / 2 - vslot_mount_wall_thickness / 2 ];
+abl_mount_extra_offset = [ 10, 0 ];
+abl_mount_hull_height = abl_mount_size.z * 2;
+
 vslot_20mm_holes_dia = 5.1;
 vslot_20mm_holes_nut_dia = vslot_20mm_holes_dia; // actually 7.2 but we use normal M5 screws instead
 vslot_20mm_holes_dis = 10; // plate holes distance from each other
 vslot_20mm_holes_to_edge_offset = 15; // extend plate this amount of mm beyond screw limits
 vslot_20mm_holes_top_bot_swap = 0;
-vslot_20mm_holes_top_enable   = [ 0, 0, 1, 0, 0 ]; // what screw holes to generate, see below for pos
+vslot_20mm_holes_top_enable   = [ 0, 1, 0, 0, 0 ]; // what screw holes to generate, see below for pos
 vslot_20mm_holes_top_head_offset = [ 1, 1, 1, 1, 1 ]; // additional hole height offset to plate (default is vslot plate thickness)
 vslot_20mm_holes_top_head_nut = [ 1, 1, 1, 1, 1 ]; // generate a nut hole instead of a round hole
 vslot_20mm_holes_top_head_nut_dia = [ vslot_20mm_holes_dia * 1.6,     // 1, nuts from left to right; only for nut holes, not round holes
@@ -137,7 +144,7 @@ vslot_20mm_belt_bound_box_extra_size = [ 10, -10 ];
 vslot_mini_holes_dia = 5.1;
 vslot_mini_holes_dis = 10; // plate holes distance from each other
 vslot_mini_holes_to_edge_offset = 10; // extend plate this amount of mm beyond screw limits
-vslot_mini_holes_enable   = [ 1, 0, 1, 1, 0 ]; // what screw holes to generate, see below for pos
+vslot_mini_holes_enable   = [ 0, 1, 1, 1, 0 ]; // what screw holes to generate, see below for pos
 vslot_mini_holes_head_offset = [ 1, 1, 1, 1, 1 ]; // additional hole height offset to plate
 vslot_mini_holes_head_nut = [ 0, 0, 0, 0, 0 ]; // generate a nut hole instead of a round hole
 vslot_mini_holes_head_dia = [ vslot_mini_holes_dia * 1.9,         // 1, holes from top clockwise
@@ -147,7 +154,7 @@ vslot_mini_holes_head_dia = [ vslot_mini_holes_dia * 1.9,         // 1, holes fr
 					vslot_mini_holes_dia * 1.9 ]; // center
 vslot_mini_holes_head_height = [ 5, 5, 5, 10, 5 ];
 vslot_mini_holes_head_fade = [ 10, 10, 10, 10, 10 ];
-vslot_mini_holes_head_fade_cutoff = [ 4, 4, 4, 4, 4 ];
+vslot_mini_holes_head_fade_cutoff = [ 4, 4, 4, 2, 4 ];
 vslot_mini_wheel_screw_offset = [ 15, 15 ];
 vslot_mini_wheel_screw_height = 3.5;
 vslot_mini_wheel_screw_dia = 9; // cutout for screw to wheel spacing which are preinstalled
@@ -381,7 +388,7 @@ module titan_mount_holes()
 
 module titan_mount_outline()
 {
-	rotate([0, 0, 270]) translate([0, 0, titan_mount_wall_thickness / 2]) scale([1, 1, 2]) minkowski() {
+	rotate([0, 0, 270]) scale([1, 1, 2]) minkowski() {
 		hull() titan_mount_holes();
 		cube([(titan_motor_dia - titan_motor_holes_offset.x * 2), (titan_motor_dia - titan_motor_holes_offset.y * 2), 0.001], center = true);
 	}
@@ -400,6 +407,24 @@ module titan_outline()
 module titan_gear()
 {
 	rotate([0, 90]) translate(titan_gear_offset) cylinder(d = titan_gear_dia, titan_gear_thickness, center = true);
+}
+
+module abl_mount_hole()
+{
+	rotate([0, 90]) cylinder(d = abl_mount_screw_dia, h = abl_mount_screw_length, center = true);
+}
+
+module abl_mount_plate()
+{
+	translate([-abl_mount_size.x, 0]) abl_mount_interface();
+}
+
+module abl_mount_interface()
+{
+	translate([-abl_mount_size.x / 2, 0]) translate(abl_mount_offset) difference() {
+		cube(abl_mount_size, center = true);
+		abl_mount_hole();
+	}
 }
 
 module vslot_20mm_plate_hole(height, dia = vslot_20mm_holes_dia)
@@ -717,7 +742,7 @@ module vslot_20mm_plate()
 	};
 }
 
-module titan_mount_on_vslot_20mm()
+module titan_mount_on_vslot_20mm(abl_mount=false, abl_mount_extra=false)
 {
 	difference() {
 		union() {
@@ -726,12 +751,32 @@ module titan_mount_on_vslot_20mm()
 				translate(titan_to_20mm_plate_offset) rotate([0, 270, 0]) titan_mount_outline();
 			}
 			translate(titan_to_20mm_plate_offset) rotate([0, 270, 0]) creality_fan_mount_bridge();
+			if (abl_mount) {
+				hull() {
+					intersection() {
+						hull() {
+							vslot_20mm_plate();
+							translate(titan_to_20mm_plate_offset) rotate([0, 270, 0]) titan_mount_outline();
+						}
+						translate([0, 100]) cube([200, 200, abl_mount_hull_height], center = true);
+					}
+					translate(let(offset = abl_mount_extra ? abl_mount_extra_offset : [0, 0]) offset)
+							translate([titan_to_20mm_plate_offset.x + titan_mount_wall_thickness / 2, titan_to_20mm_plate_offset.y])
+							abl_mount_plate();
+				}
+				translate(let(offset = abl_mount_extra ? abl_mount_extra_offset : [0, 0]) offset)
+						translate([titan_to_20mm_plate_offset.x + titan_mount_wall_thickness / 2, titan_to_20mm_plate_offset.y])
+						abl_mount_interface();
+			}
 		}
 		translate(titan_to_20mm_plate_offset) {
 			titan_outline();
 			titan_hotend_clear_zone();
 			rotate([90, 0, 270]) scale([1, 1, 1.01]) titan_mount_holes();
-			scale([1.2, 1, 1]) rotate([0, 270]) translate([titan_mount_wall_thickness / 2, 0]) translate(creality_fan_mount_offset) creality_fan_mount_holes();
+			scale([1.2, 1, 1]) rotate([0, 270])
+					translate([titan_mount_wall_thickness / 2, 0])
+					translate(creality_fan_mount_offset)
+					creality_fan_mount_holes();
 			titan_gear();
 		}
 		translate([0, 0, -0.001]) vslot_20mm_mount_holes(head=true);
@@ -739,10 +784,15 @@ module titan_mount_on_vslot_20mm()
 				vslot_20mm_wheel_screws();
 		translate([0, 0, -0.001]) translate([0, 0, vslot_20mm_edge_hole_dia / 2 - vslot_mount_wall_thickness / 2])
 				vslot_20mm_edge_screw_cutout();
+		translate(let(offset = abl_mount_extra ? abl_mount_extra_offset : [0, 0]) offset)
+				translate([-abl_mount_screw_length / 2, 0])
+				translate([titan_to_mini_plate_offset.x + titan_mount_wall_thickness / 2, titan_to_mini_plate_offset.y])
+				translate(abl_mount_offset)
+				abl_mount_hole();
 	}
 }
 
-module titan_mount_on_vslot_mini()
+module titan_mount_on_vslot_mini(abl_mount=false, abl_mount_extra=false)
 {
 	difference() {
 		union() {
@@ -750,18 +800,43 @@ module titan_mount_on_vslot_mini()
 				vslot_mini_plate();
 				translate(titan_to_mini_plate_offset) rotate([0, 270, 0]) titan_mount_outline();
 			}
+			if (abl_mount) {
+				hull() {
+					intersection() {
+						hull() {
+							vslot_mini_plate();
+							translate(titan_to_20mm_plate_offset) rotate([0, 270, 0]) titan_mount_outline();
+						}
+						translate([0, 100]) cube([200, 200, abl_mount_hull_height], center = true);
+					}
+					translate(let(offset = abl_mount_extra ? abl_mount_extra_offset : [0, 0]) offset)
+							translate([titan_to_mini_plate_offset.x + titan_mount_wall_thickness / 2, titan_to_mini_plate_offset.y])
+							abl_mount_plate();
+				}
+				translate(let(offset = abl_mount_extra ? abl_mount_extra_offset : [0, 0]) offset)
+						translate([titan_to_mini_plate_offset.x + titan_mount_wall_thickness / 2, titan_to_mini_plate_offset.y])
+						abl_mount_interface();
+			}
 			translate(titan_to_mini_plate_offset) rotate([0, 270, 0]) creality_fan_mount_bridge();
 		}
 		translate(titan_to_mini_plate_offset) {
 			titan_outline();
 			titan_hotend_clear_zone();
 			rotate([90, 0, 270]) scale([1, 1, 1.01]) titan_mount_holes();
-			scale([1.2, 1, 1]) rotate([0, 270]) translate([titan_mount_wall_thickness / 2, 0]) translate(creality_fan_mount_offset) creality_fan_mount_holes();
+			scale([1.2, 1, 1]) rotate([0, 270])
+					translate([titan_mount_wall_thickness / 2, 0])
+					translate(creality_fan_mount_offset)
+					creality_fan_mount_holes();
 			titan_gear();
 		}
 		translate([0, 0, -0.001]) {
 			vslot_mini_wheel_screws(nut_offset=true);
 			vslot_mini_holes(vslot_mini_holes_enable, head=true);
 		}
+		translate(let(offset = abl_mount_extra ? abl_mount_extra_offset : [0, 0]) offset)
+				translate([-abl_mount_screw_length / 2, 0])
+				translate([titan_to_mini_plate_offset.x + titan_mount_wall_thickness / 2, titan_to_mini_plate_offset.y])
+				translate(abl_mount_offset)
+				abl_mount_hole();
 	}
 }
