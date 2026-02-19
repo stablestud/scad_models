@@ -21,6 +21,29 @@ belt_width = 7;
 titan_to_20mm_plate_offset = [ 3, 0, 32.5 ]; // define the offset of titan from the plate, with that the titan mount can be moved
 titan_to_mini_plate_offset = [ -1, 0, 32.5 ];
 
+titan_motor_dia = 43;
+titan_motor_holes_offset = [ 31 / 2, 31 / 2 ];
+titan_motor_holes_dia    = 3.2;
+titan_motor_shaft_hole_dia = 27;
+titan_motor_size = [ titan_motor_dia, titan_motor_dia, 55 ];
+titan_extruder1_size = [ 47, 45, 57 ];
+titan_extruder1_offset = [ titan_mount_wall_thickness / 2 + titan_extruder1_size.z / 2, 2, -2 ];
+titan_extruder2_size = [ 47, 60, 55 ];
+titan_extruder2_offset = [ titan_mount_wall_thickness / 2 + titan_extruder2_size.z / 2 + 3.9, 0 ];
+titan_hotend_clear_zone_size = [ titan_extruder1_size.z, titan_extruder1_size.z, titan_motor_dia * 3 ];
+titan_hotend_clear_zone_offset = [ 0, -titan_extruder1_size.y / 2 - titan_mount_wall_thickness * 2 - titan_hotend_clear_zone_size.y / 2 + 2, 0 ];
+titan_gear_dia = 38;
+titan_gear_thickness = 8;
+titan_gear_offset = [ titan_motor_holes_offset.x, titan_motor_holes_offset.y, titan_gear_thickness / 2 + titan_mount_wall_thickness / 2 + 4 ];
+titan_motor_plug_size = [ 40, 12, 6 ];
+titan_motor_plug_offset = [ -13 - titan_motor_plug_size.x / 2, 0, titan_motor_dia / 2 + titan_motor_plug_size.z / 2 ];
+
+creality_fan_mount_thickness = 7.6;
+creality_fan_mount_offset = [ 28.5, -creality_fan_mount_thickness / 2 + 1.3, 0.1 ];
+creality_fan_mount_hole_length = 7;
+creality_fan_mount_hole_width = 3.1;
+creality_fan_mount_hole_wall_thickness = 2.8;
+
 vslot_20mm_holes_dia = 5.1;
 vslot_20mm_holes_nut_dia = vslot_20mm_holes_dia; // actually 7.2 but we use normal M5 screws instead
 vslot_20mm_holes_dis = 10; // plate holes distance from each other
@@ -129,29 +152,6 @@ vslot_mini_wheel_screw_offset = [ 15, 15 ];
 vslot_mini_wheel_screw_height = 3.5;
 vslot_mini_wheel_screw_dia = 9; // cutout for screw to wheel spacing which are preinstalled
 vslot_mini_wheel_to_edge_offset = 4.5; // extend plate this amount of mm beyond screw limits
-
-titan_motor_dia = 43;
-titan_motor_holes_offset = [ 31 / 2, 31 / 2 ];
-titan_motor_holes_dia    = 3.2;
-titan_motor_shaft_hole_dia = 27;
-titan_motor_size = [ titan_motor_dia, titan_motor_dia, 55 ];
-titan_extruder1_size = [ 47, 45, 57 ];
-titan_extruder1_offset = [ titan_mount_wall_thickness / 2 + titan_extruder1_size.z / 2, 2, -2 ];
-titan_extruder2_size = [ 47, 60, 55 ];
-titan_extruder2_offset = [ titan_mount_wall_thickness / 2 + titan_extruder2_size.z / 2 + 3.9, 0 ];
-titan_hotend_clear_zone_size = [ titan_extruder1_size.z, titan_extruder1_size.z, vslot_20mm_holes_to_edge_offset * 5 ];
-titan_hotend_clear_zone_offset = [ 0, -titan_extruder1_size.y / 2 - titan_mount_wall_thickness * 2 - titan_hotend_clear_zone_size.y / 2, 0 ];
-titan_gear_dia = 38;
-titan_gear_thickness = 8;
-titan_gear_offset = [ titan_motor_holes_offset.x, titan_motor_holes_offset.y, titan_gear_thickness / 2 + titan_mount_wall_thickness / 2 + 4 ];
-titan_motor_plug_size = [ 40, 12, 6 ];
-titan_motor_plug_offset = [ -13 - titan_motor_plug_size.x / 2, 0, titan_motor_dia / 2 + titan_motor_plug_size.z / 2 ];
-
-creality_fan_mount_thickness = 7.6; 
-creality_fan_mount_offset = [ 28.5, -creality_fan_mount_thickness / 2 + 1.3, 0.1 ];
-creality_fan_mount_hole_length = 7;
-creality_fan_mount_hole_width = 3.1;
-creality_fan_mount_hole_wall_thickness = 2.8;
 
 $fn = $preview ? 15 : 30;
 
@@ -729,7 +729,7 @@ module titan_mount_on_vslot_20mm()
 		}
 		translate(titan_to_20mm_plate_offset) {
 			titan_outline();
-			//titan_hotend_clear_zone();
+			titan_hotend_clear_zone();
 			rotate([90, 0, 270]) scale([1, 1, 1.01]) titan_mount_holes();
 			scale([1.2, 1, 1]) rotate([0, 270]) translate([titan_mount_wall_thickness / 2, 0]) translate(creality_fan_mount_offset) creality_fan_mount_holes();
 			titan_gear();
@@ -754,7 +754,7 @@ module titan_mount_on_vslot_mini()
 		}
 		translate(titan_to_mini_plate_offset) {
 			titan_outline();
-			//titan_hotend_clear_zone();
+			titan_hotend_clear_zone();
 			rotate([90, 0, 270]) scale([1, 1, 1.01]) titan_mount_holes();
 			scale([1.2, 1, 1]) rotate([0, 270]) translate([titan_mount_wall_thickness / 2, 0]) translate(creality_fan_mount_offset) creality_fan_mount_holes();
 			titan_gear();
