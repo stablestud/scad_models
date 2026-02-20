@@ -117,7 +117,10 @@ vslot_20mm_holes_side_head_fade = [ vslot_20mm_holes_side_bridge[0] ? 40 : 60, v
 vslot_20mm_holes_side_head_fade_cutoff = [ 20, 20 ];
 vslot_20mm_wheel_screw_dia = 9; // cutout for screw to wheel spacing which must be reversed
 vslot_20mm_wheel_screw_height = 6;
-vslot_20mm_wheel_screw_nuts_swap = 1;
+vslot_20mm_wheel_screw_eccentric_swap = 1; // if the eccentric nuts are on the top and not on the bottom
+vslot_20mm_wheel_screw_nut = true; // if instead of a simple screw hole generate a nut hole
+vslot_20mm_wheel_screw_nut_dia = vslot_20mm_holes_dia * 1.6;
+vslot_20mm_wheel_screw_nut_eccentric_extra_dia = 1.5;
 vslot_20mm_wheel_dia = 26;
 vslot_20mm_wheel_height = 12;
 vslot_20mm_wheel_washer_dia = 10.4;
@@ -161,6 +164,8 @@ vslot_mini_wheel_screw_dia = 9; // cutout for screw to wheel spacing which are p
 vslot_mini_wheel_to_edge_offset = 4.5; // extend plate this amount of mm beyond screw limits
 
 $fn = $preview ? 15 : 30;
+
+function face_distance(diameter) = diameter / cos(30);
 
 module vslot_20mm_wheel()
 {
@@ -481,7 +486,7 @@ module vslot_20mm_holes_side(side_enable, head=false)
 				if (head) {
 					head_height = vslot_20mm_holes_side_head_height[i];
 					is_nut = vslot_20mm_holes_side_head_nut[i] ? true : false;
-					dia = is_nut ? vslot_20mm_holes_side_head_nut_dia[i] : vslot_20mm_holes_side_head_dia[i];
+					dia = is_nut ? face_distance(vslot_20mm_holes_side_head_nut_dia[i]) : vslot_20mm_holes_side_head_dia[i];
 					translate([0, 0, offset + vslot_mount_wall_thickness / 2 + head_height / 2]) {
 						vslot_20mm_plate_side_hole(height = head_height, dia = dia, bridge = vslot_20mm_holes_side_bridge[i], nut = is_nut, side_enable = side_enable[i]);
 						translate([0, 0, head_height / 2]) intersection() {
@@ -508,7 +513,7 @@ module vslot_20mm_holes_cross(cross_enable, head=false)
 				if (head) {
 					head_height = vslot_20mm_holes_cross_head_height[i];
 					is_nut = vslot_20mm_holes_cross_head_nut[i] ? true : false;
-					dia = is_nut ? vslot_20mm_holes_cross_head_nut_dia[i] : vslot_20mm_holes_cross_head_dia[i];
+					dia = is_nut ? face_distance(vslot_20mm_holes_cross_head_nut_dia[i]) : vslot_20mm_holes_cross_head_dia[i];
 					translate([0, 0, offset + vslot_mount_wall_thickness / 2 + head_height / 2]) {
 						cylinder(d = dia, h = head_height, center = true, $fn = is_nut ? 6 : $fn);
 						translate([0, 0, head_height / 2]) intersection() {
@@ -528,7 +533,7 @@ module vslot_20mm_holes_cross(cross_enable, head=false)
 		if (head) {
 			head_height = vslot_20mm_holes_cross_head_height[4];
 			is_nut = vslot_20mm_holes_cross_head_nut[4] ? true : false;
-			dia = is_nut ? vslot_20mm_holes_cross_head_nut_dia[4] : vslot_20mm_holes_cross_head_dia[4];
+			dia = is_nut ? face_distance(vslot_20mm_holes_cross_head_nut_dia[4]) : vslot_20mm_holes_cross_head_dia[4];
 			translate([0, 0, offset + vslot_mount_wall_thickness / 2 + head_height / 2]) {
 				cylinder(d = dia, h = head_height, center = true, $fn = is_nut ? 6 : $fn);
 				translate([0, 0, head_height / 2]) intersection() {
@@ -553,7 +558,7 @@ module vslot_20mm_holes_top(top_enable, head=false)
 				if (head) {
 					head_height = vslot_20mm_holes_top_head_height[i];
 					is_nut = vslot_20mm_holes_top_head_nut[i] ? true : false;
-					dia = is_nut ? vslot_20mm_holes_top_head_nut_dia[i] : vslot_20mm_holes_top_head_dia[i];
+					dia = is_nut ? face_distance(vslot_20mm_holes_top_head_nut_dia[i]) : vslot_20mm_holes_top_head_dia[i];
 					translate([0, 0, offset + vslot_mount_wall_thickness / 2 + head_height / 2]) {
 						cylinder(d = dia, h = head_height, center = true, $fn = is_nut ? 6 : $fn);
 						translate([0, 0, head_height / 2]) intersection() {
@@ -580,7 +585,7 @@ module vslot_20mm_holes_bottom(bot_enable, head=false)
 				if (head) {
 					head_height = vslot_20mm_holes_bot_head_height[i];
 					is_nut = vslot_20mm_holes_bot_head_nut[i] ? true : false;
-					dia = is_nut ? vslot_20mm_holes_bot_head_nut_dia[i] : vslot_20mm_holes_bot_head_dia[i];
+					dia = is_nut ? face_distance(vslot_20mm_holes_bot_head_nut_dia[i]) : vslot_20mm_holes_bot_head_dia[i];
 					translate([0, 0, offset + vslot_mount_wall_thickness / 2 + head_height / 2]) {
 						cylinder(d = dia, h = head_height, center = true, $fn = is_nut ? 6 : $fn);
 						translate([0, 0, head_height / 2]) intersection() {
@@ -602,7 +607,7 @@ module vslot_20mm_holes_bottom(bot_enable, head=false)
 				if (head) {
 					head_height = vslot_20mm_holes_bot_head_height[i];
 					is_nut = vslot_20mm_holes_bot_head_nut[i] ? true : false;
-					dia = is_nut ? vslot_20mm_holes_bot_head_nut_dia[i] : vslot_20mm_holes_bot_head_dia[i];
+					dia = is_nut ? face_distance(vslot_20mm_holes_bot_head_nut_dia[i]) : vslot_20mm_holes_bot_head_dia[i];
 					translate([0, 0, offset + vslot_mount_wall_thickness / 2 + head_height / 2]) {
 						cylinder(d = dia, h = head_height, center = true, $fn = is_nut ? 6 : $fn);
 						translate([0, 0, head_height / 2]) intersection() {
@@ -716,16 +721,17 @@ module vslot_mini_mount_outline()
 
 module vslot_20mm_wheel_screws()
 {
+	is_nut = vslot_20mm_wheel_screw_nut;
 	for (i = [[1, 1], [-1, 1], [-1, -1], [1, -1]]) {
 		translate([-vslot_20mm_holes_dis * 2 * i.x, vslot_20mm_holes_dis * 2 * i.y])
-				cylinder(d = vslot_20mm_wheel_screw_dia + ((i.y < 0 && !vslot_20mm_wheel_screw_nuts_swap) || (i.y > 0 && vslot_20mm_wheel_screw_nuts_swap) ? 2 : 0), h = vslot_20mm_wheel_screw_height, center = true);
+				cylinder(d = (is_nut ? face_distance(vslot_20mm_wheel_screw_nut_dia) : vslot_20mm_wheel_screw_dia) + ((i.y < 0 && !vslot_20mm_wheel_screw_eccentric_swap) || (i.y > 0 && vslot_20mm_wheel_screw_eccentric_swap) ? vslot_20mm_wheel_screw_nut_eccentric_extra_dia : 0), h = vslot_20mm_wheel_screw_height, center = true, $fn = is_nut ? 6 : $fn);
 	}
 }
 
 module vslot_20mm_edge_screw_cutout()
 {
 	for (i = [-1, 1]) {
-		translate([(vslot_20mm_holes_dis * 2 + vslot_20mm_edge_hole_to_plate_offset.x) * i, vslot_20mm_holes_dis * 2 * (vslot_20mm_wheel_screw_nuts_swap ? -1 : 1) + vslot_20mm_edge_hole_to_plate_offset.y])
+		translate([(vslot_20mm_holes_dis * 2 + vslot_20mm_edge_hole_to_plate_offset.x) * i, vslot_20mm_holes_dis * 2 * (vslot_20mm_wheel_screw_eccentric_swap ? -1 : 1) + vslot_20mm_edge_hole_to_plate_offset.y])
 				hull() {
 					for (k = [-1, 1]) {
 						translate([0, vslot_20mm_edge_hole_offset * k]) cylinder(d = vslot_20mm_edge_hole_dia * 2, h = vslot_20mm_edge_hole_dia, center = true);
