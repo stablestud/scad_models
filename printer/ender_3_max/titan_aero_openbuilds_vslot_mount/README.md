@@ -1,18 +1,18 @@
 # Openbuilds V-Slot Plate Mounts for E3D Titan (Aero) Extruder
 
 These models make it possible to mount the E3D Titan (Aero) Extruder onto Openbuilds V-Slot gantry plates.
-The gantry plates also needs belt mounts. Currently the belt mount models are only optimized for the Creality Ender 3 series (might work for other systems).
+The gantry plates also need belt mounts. Currently the belt mount models are only optimized for the Creality Ender 3 2020 extrusion (might work for other systems).
 
 Following gantry plates are supported:
 * [OpenBuilds V-Slot 20mm](https://github.com/eric-wieser/2.12-robot/blob/master/hardware/Third-party/Openbuilds/PDF%20Drawings/V-Slot%20Gantry%20Plate%2020mm.PDF)
 * [OpenBuilds V-Slot Mini](https://github.com/eric-wieser/2.12-robot/blob/master/hardware/Third-party/Openbuilds/PDF%20Drawings/Mini%20V%20Wheel%20Plate.PDF)
 
 I had issues with the original Ender 3 extruder gantry as it was too loose.
-So I switched to these gantries as they have 4 wheels and are therefore more stiff.
+So I switched to these gantries as they have 4 wheels and are more stiff.
 
 ## Models
 
-Depending on the gantry plate you have different models available:
+Depending on the gantry plate you have need different models:
 * V-Slot 20mm:
   * `titan_mount_vslot_20mm.stl`
   * `belt_mount_vslot_20mm_top.stl`
@@ -24,7 +24,7 @@ The `titan_mount_*` models are the actual Titan (Aero) mount and the `belt_mount
 
 ## BOM
 
-Extra materials are needed, dependent on the gantry plate you use:
+Extra materials are needed, depending on the gantry plate you use:
 
 * V-Slot 20mm:
   * Screws
