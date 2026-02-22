@@ -45,7 +45,7 @@ creality_fan_mount_hole_width = 3.1;
 creality_fan_mount_hole_wall_thickness = 2.8;
 
 abl_mount_size = [ 3, 15, 7.15 ];
-abl_mount_screw_dia = 2.8;
+abl_mount_screw_dia = 3;
 abl_mount_screw_length = 10;
 abl_mount_offset = [ titan_mount_wall_thickness / 2 - abl_mount_size.x / 2 + 48, titan_motor_holes_offset.y - 1, abl_mount_size.z / 2 - vslot_mount_wall_thickness / 2 ];
 abl_mount_extra_offset = [ 10, 0 ];
@@ -136,7 +136,6 @@ vslot_20mm_belt_plate_thickness = 2.5;
 vslot_20mm_belt_mount_height = vslot_20mm_wheel_washer_height + vslot_20mm_wheel_height + vslot_20mm_wheel_washer_top_height + vslot_20mm_wheel_top_plate_thickness;
 vslot_20mm_belt_mount_offset = [ 14.5, 4.5, vslot_20mm_belt_mount_height / 2 - vslot_20mm_wheel_washer_height / 2];
 vslot_20mm_belt_mount_screw_size = 2.2;
-vslot_20mm_belt_mount_2screw_dis = 3.2;
 vslot_20mm_belt_mount_scale = [ 1, 1, 1 ];
 vslot_20mm_belt_slot_extra_height = 1.5;
 vslot_20mm_belt_slot_offset = [ 0, 0, belt_width / 2 - vslot_20mm_wheel_height / 2 + vslot_20mm_belt_slot_extra_height];
@@ -162,7 +161,7 @@ vslot_mini_holes_head_fade = [ 10, 10, 10, 10, 10 ];
 vslot_mini_holes_head_fade_cutoff = [ 4, 4, 4, 2, 4 ];
 vslot_mini_wheel_screw_offset = [ 15, 15.95 ];
 vslot_mini_wheel_screw_height = 5.5;
-vslot_mini_wheel_screw_dia = 9; // cutout for screw to wheel spacing which are preinstalled
+vslot_mini_wheel_screw_dia = 10; // cutout for screw to wheel spacing which are preinstalled
 vslot_mini_wheel_screw_nuts_swap = 1; // if eccentric nut is on the top and not on the bottom
 vslot_mini_wheel_dia = 17;
 vslot_mini_wheel_height = 10;
@@ -171,27 +170,37 @@ vslot_mini_wheel_washer_height = 6;
 vslot_mini_wheel_washer_wall_thickness = 1.5;
 vslot_mini_wheel_side_cutout_offset = [ 0, -1 ];
 vslot_mini_wheel_to_belt_edge_offset = [ 10.2, 0 ];
-vslot_mini_belt_edge_extra_offset = [ 5, 0 ];
+vslot_mini_belt_edge_extra_offset = [ 4, 0 ];
+vslot_mini_belt_slot_cutout_extra_offset = [ 2.7, 0 ];
 vslot_mini_belt_slot_extra_height = 1;
 vslot_mini_belt_slot_mount_width = 14;
 vslot_mini_belt_slot_offset = [ vslot_mini_wheel_dia / 2 + 3, 0.5 ];
-vslot_mini_belt_slot_tun_offset = [ 0.5, 2, 0 ];
-vslot_mini_belt_slot_tun_cyl_offset = [ 15, -1 ];
+vslot_mini_belt_slot_tun_offset = [ 0.25, 0, 0 ];
+vslot_mini_belt_slot_tun_cyl_offset = [ 13.5, -1 ];
 vslot_mini_belt_slot_tun_dia = vslot_mini_belt_slot_mount_width * 2;
 vslot_mini_belt_mount_height = vslot_mini_wheel_washer_height + vslot_mini_wheel_height + vslot_mini_belt_slot_extra_height;
 vslot_mini_belt_plate_thickness = 5;
 vslot_mini_belt_plate_mount_screw_dia = 3;
 vslot_mini_belt_plate_mount_screw_wall_thickness = 1.5;
 vslot_mini_belt_plate_mount_depth = vslot_mini_belt_edge_extra_offset.x;
-vslot_mini_belt_plate_mount_offset = [ vslot_mini_wheel_to_belt_edge_offset.x + vslot_mini_belt_plate_mount_depth / 2, vslot_mini_wheel_washer_dia / 2 - vslot_mini_belt_plate_mount_screw_dia + 0.5, -vslot_mini_wheel_washer_height / 2 - vslot_mini_belt_plate_thickness - vslot_mini_belt_plate_mount_screw_dia / 2 - vslot_mini_belt_plate_mount_screw_wall_thickness - 0.5 ];
+vslot_mini_belt_plate_mount_offset = [ vslot_mini_wheel_to_belt_edge_offset.x + vslot_mini_belt_plate_mount_depth / 2, vslot_mini_wheel_washer_dia / 2 - vslot_mini_belt_plate_mount_screw_dia - 0.5, -vslot_mini_wheel_washer_height / 2 - vslot_mini_belt_plate_thickness - vslot_mini_belt_plate_mount_screw_dia / 2 - vslot_mini_belt_plate_mount_screw_wall_thickness - 1 ];
+vslot_mini_cable_canal_dia = 7;
+vslot_mini_cable_canal_scale = [ 1, 1, 0.6 ];
+vslot_mini_cable_canal_extra_dia = 1.5;
+vslot_mini_cable_canal_extra_height = 5;
+vslot_mini_cable_canal_height_offset = -1.5;
+vslot_mini_cable_canal_path = [[ 10, -25, titan_to_mini_plate_offset.z - titan_extruder1_size.z / 2 - titan_extruder1_offset.z + vslot_mini_cable_canal_height_offset ],
+				[ 18, -5, titan_to_mini_plate_offset.z - titan_extruder1_size.z / 2 - titan_extruder1_offset.z + vslot_mini_cable_canal_height_offset ],
+				[ 18, 5, titan_to_mini_plate_offset.z - titan_extruder1_size.z / 2 - titan_extruder1_offset.z + vslot_mini_cable_canal_height_offset ],
+				[ 10, 25, titan_to_mini_plate_offset.z - titan_extruder1_size.z / 2 - titan_extruder1_offset.z + vslot_mini_cable_canal_height_offset ]];
 
 $fn = $preview ? 15 : 30;
 
 function face_distance(diameter) = diameter / cos(30);
 
-module vslot_mini_wheel()
+module vslot_mini_wheel(extra_dia = 0)
 {
-	translate([0, 0, vslot_mini_belt_slot_extra_height / 2]) cylinder(d = vslot_mini_wheel_dia, h = vslot_mini_wheel_height + vslot_mini_belt_slot_extra_height, center = true);
+	translate([0, 0, vslot_mini_belt_slot_extra_height / 2]) cylinder(d = vslot_mini_wheel_dia + extra_dia * 1.5, h = vslot_mini_wheel_height + vslot_mini_belt_slot_extra_height, center = true);
 }
 
 module vslot_mini_wheel_washer()
@@ -199,9 +208,9 @@ module vslot_mini_wheel_washer()
 	cylinder(d = vslot_mini_wheel_washer_dia, h = vslot_mini_wheel_washer_height, center = true);
 }
 
-module vslot_mini_wheel_outline()
+module vslot_mini_wheel_outline(extra_dia = 0)
 {
-	translate([0, 0, vslot_mini_wheel_washer_height / 2 + vslot_mini_wheel_height / 2]) vslot_mini_wheel();
+	translate([0, 0, vslot_mini_wheel_washer_height / 2 + vslot_mini_wheel_height / 2]) vslot_mini_wheel(extra_dia = extra_dia);
 	vslot_mini_wheel_washer();
 }
 
@@ -225,17 +234,30 @@ module vslot_mini_belt_plate_mount_hole()
 			cylinder(d = vslot_mini_belt_plate_mount_screw_dia, h = vslot_mini_belt_plate_mount_depth, center = true);
 }
 
+module vslot_mini_belt_plate_mount_hole_inset()
+{
+	rotate([0, 90])
+			cylinder(d = vslot_mini_belt_plate_mount_screw_dia * 2, h = vslot_mini_belt_plate_mount_screw_dia, center = true);
+}
+
 module vslot_mini_belt_plate_mount()
 {
 	rotate([0, 90])
 			cylinder(d = vslot_mini_belt_plate_mount_screw_dia + vslot_mini_belt_plate_mount_screw_wall_thickness * 2, h = vslot_mini_belt_plate_mount_depth, center = true);
 }
 
-module vslot_mini_belt_slot_hole()
+module vslot_mini_belt_plate_mount_inset()
+{
+	rotate([0, 90])
+			cylinder(d = vslot_mini_belt_plate_mount_screw_dia * 2 + vslot_mini_belt_plate_mount_screw_wall_thickness * 2, h = vslot_mini_belt_plate_mount_depth, center = true);
+}
+
+module vslot_mini_belt_slot_hole(extra_offset = [ 0, 0 ])
 {
 	belt_height_adjust = vslot_mini_belt_slot_extra_height + 1.5;
 	translate([0, 0, vslot_mini_wheel_washer_height / 2 + vslot_mini_wheel_height / 2])
 			translate([0, 0, belt_height_adjust / 2])
+			translate(extra_offset)
 			translate(vslot_mini_belt_slot_offset)
 			translate(vslot_mini_belt_slot_tun_offset)
 			difference() {
@@ -264,53 +286,68 @@ module vslot_mini_belt_standoff_cutout()
 		cube([10, 40, vslot_mini_belt_plate_thickness + vslot_mini_belt_mount_height * 2], center = true);
 }
 
-module vslot_mini_belt_cutout()
+module vslot_mini_belt_slot_side_cutout(extra_offset = [ 0, 0 ])
 {
-	vslot_mini_wheel_outline();
-	vslot_mini_belt_slot_hole();
+	translate(vslot_mini_belt_slot_cutout_extra_offset)
+		translate(vslot_mini_belt_slot_offset)
+		translate([10 / 2, 0])
+		translate(extra_offset)
+		cube([10, 40, vslot_mini_belt_plate_thickness + vslot_mini_belt_mount_height * 2], center = true);
+}
+
+module vslot_mini_belt_cutout(extra_slot_offset = [ 0, 0 ])
+{
+	vslot_mini_wheel_outline(extra_dia = extra_slot_offset.x);
+	vslot_mini_belt_slot_hole(extra_offset = extra_slot_offset);
 	vslot_mini_belt_plate_cutout();
-	vslot_mini_belt_standoff_cutout();
-	translate(vslot_mini_belt_plate_mount_offset) vslot_mini_belt_plate_mount_hole();
+	vslot_mini_belt_slot_side_cutout(extra_offset = extra_slot_offset);
+	translate(vslot_mini_belt_plate_mount_offset) {
+		scale([2, 1, 1]) vslot_mini_belt_plate_mount_hole();
+		translate([vslot_mini_belt_plate_mount_depth / 2 - vslot_mini_belt_plate_mount_screw_dia / 2 + 0.5, 0])
+				 vslot_mini_belt_plate_mount_hole_inset();
+	}
 	cube_dia = vslot_mini_wheel_washer_dia / 2 + vslot_mini_wheel_washer_wall_thickness;
 	translate([-cube_dia / 2, cube_dia / 2, vslot_mini_wheel_washer_height])
 			cube([cube_dia, cube_dia, vslot_mini_wheel_washer_height], center = true);
 	translate([0, vslot_mini_wheel_washer_dia / 2 + vslot_mini_wheel_washer_wall_thickness + 10 / 2])
 			translate(vslot_mini_wheel_side_cutout_offset)
-			cube([40, 10, 60], center = true);
+			cube([80, 10, 60], center = true);
 }
 
-module vslot_mini_belt_slot_mount()
+module vslot_mini_belt_slot_mount(extra_offset = [ 0, 0 ])
 {
 	translate([0, 0, vslot_mini_belt_mount_height / 2 - vslot_mini_wheel_washer_height / 2])
-			intersection() {
-				translate(vslot_mini_belt_slot_offset)
-						cylinder(d = vslot_mini_belt_slot_mount_width, h = vslot_mini_belt_mount_height, center = true);
-	}
+			translate(extra_offset)
+			translate(vslot_mini_belt_slot_offset)
+			cylinder(d = vslot_mini_belt_slot_mount_width, h = vslot_mini_belt_mount_height, center = true);
 }
 
-module vslot_mini_belt_slot_mount_plate()
+module vslot_mini_belt_slot_mount_plate(extra_offset = [ 0, 0 ])
 {
 	hull() {
 		vslot_mini_wheel_washer_wall();
-		vslot_mini_belt_slot_mount();
+		vslot_mini_belt_slot_mount(extra_offset = extra_offset);
 	}
 }
 
-module vslot_mini_belt_plate()
+module vslot_mini_belt_plate(extra_slot_offset = [ 0, 0 ])
 {
 	difference() {
 		union() {
-			vslot_mini_belt_slot_mount_plate();
-			hull() {
-				intersection() {
-					cube([40, 40, vslot_mini_wheel_washer_height], center = true);
-					vslot_mini_belt_slot_mount_plate();
+			vslot_mini_belt_slot_mount_plate(extra_offset = extra_slot_offset);
+			difference() {
+				hull() {
+					intersection() {
+						cube([40, 40, vslot_mini_wheel_washer_height], center = true);
+						vslot_mini_belt_slot_mount_plate(extra_offset = extra_slot_offset);
+					}
+					translate(vslot_mini_belt_plate_mount_offset)
+							vslot_mini_belt_plate_mount_inset();
 				}
-				translate(vslot_mini_belt_plate_mount_offset)
-						vslot_mini_belt_plate_mount();
+				vslot_mini_belt_standoff_cutout();
 			}
 		}
-		vslot_mini_belt_cutout();
+		vslot_mini_belt_cutout(extra_slot_offset = extra_slot_offset);
 	}
 }
 
@@ -372,16 +409,6 @@ module vslot_20mm_belt_mount_screw()
 {
 	cylinder(d = vslot_20mm_belt_mount_screw_size, h = vslot_20mm_belt_mount_height, center = true);
 	translate([0, 0, vslot_20mm_belt_mount_height / 2 + -vslot_20mm_belt_mount_screw_size / 2]) cylinder(d = vslot_20mm_belt_mount_screw_size * 2, h = vslot_20mm_belt_mount_screw_size, center = true);
-}
-
-module vslot_20mm_belt_mount_2screw()
-{
-	for (i = [-1, 1]) {
-		translate([i * vslot_20mm_belt_mount_2screw_dis / 2, 0]) {
-			cylinder(d = vslot_20mm_belt_mount_screw_size, h = vslot_20mm_belt_mount_height, center = true);
-			translate([0, 0, -i * vslot_20mm_belt_mount_height / 2 + i * vslot_20mm_belt_mount_screw_size / 2]) cylinder(d = vslot_20mm_belt_mount_screw_size * 2, h = vslot_20mm_belt_mount_screw_size, center = true);
-		}
-	}
 }
 
 module vslot_20mm_belt_slot_mount()
@@ -858,7 +885,7 @@ module vslot_mini_plate_to_belt_mount_hole()
 	for (i = [[1, -1], [-1, -1]]) {
 		translate([vslot_mini_wheel_screw_offset.x * i.x, vslot_mini_wheel_screw_offset.y * i.y])
 				translate([(vslot_mini_belt_plate_mount_offset.x - vslot_mini_belt_plate_mount_depth) * i.x, -vslot_mini_belt_plate_mount_offset.y * i.y, vslot_mini_belt_plate_mount_screw_wall_thickness])
-				vslot_mini_belt_plate_mount_hole();
+				scale([2, 1, 1]) vslot_mini_belt_plate_mount_hole();
 	}
 }
 
@@ -867,6 +894,34 @@ module vslot_mini_wheel_screws(nut_offset=false, height = vslot_mini_wheel_screw
 	for (i = [[1, 1], [-1, 1], [-1, -1], [1, -1]]) {
 		translate([-vslot_mini_wheel_screw_offset.x * i.x, vslot_mini_wheel_screw_offset.y * i.y])
 				cylinder(d = vslot_mini_wheel_screw_dia + (((i.y < 0 && nut_offset && !vslot_mini_wheel_screw_nuts_swap) || (i.y > 0 && nut_offset && vslot_mini_wheel_screw_nuts_swap)) ? 1.5 : 0), h = height, center = true);
+	}
+}
+
+module vslot_mini_cable_canal()
+{
+	for (i = [0:1:len(vslot_mini_cable_canal_path) - 1]) {
+		hull() {
+			translate(vslot_mini_cable_canal_path[i])
+					scale(vslot_mini_cable_canal_scale)
+							sphere(d = vslot_mini_cable_canal_dia);
+			if (i) {
+				translate(vslot_mini_cable_canal_path[i - 1])
+						scale(vslot_mini_cable_canal_scale)
+								sphere(d = vslot_mini_cable_canal_dia);
+			}
+		}
+		hull() {
+			translate(vslot_mini_cable_canal_path[i]) {
+				sphere(d = vslot_mini_cable_canal_extra_dia);
+				translate([0, 0, vslot_mini_cable_canal_extra_height]) sphere(d = vslot_mini_cable_canal_extra_dia);
+			}
+			if (i) {
+				translate(vslot_mini_cable_canal_path[i - 1]) {
+					sphere(d = vslot_mini_cable_canal_extra_dia);
+					translate([0, 0, vslot_mini_cable_canal_extra_height]) sphere(d = vslot_mini_cable_canal_extra_dia);
+				}
+			}
+		}
 	}
 }
 
@@ -959,7 +1014,7 @@ module titan_mount_on_vslot_20mm(abl_mount=false, abl_mount_extra=false)
 	}
 }
 
-module titan_mount_on_vslot_mini(abl_mount=false, abl_mount_extra=false)
+module titan_mount_on_vslot_mini(abl_mount=false, abl_mount_extra=false, cable_canal=false)
 {
 	difference() {
 		union() {
@@ -1006,5 +1061,8 @@ module titan_mount_on_vslot_mini(abl_mount=false, abl_mount_extra=false)
 				translate([titan_to_mini_plate_offset.x + titan_mount_wall_thickness / 2, titan_to_mini_plate_offset.y])
 				translate(abl_mount_offset)
 				abl_mount_hole();
+		if (cable_canal) {
+			vslot_mini_cable_canal();
+		}
 	}
 }
